@@ -3,14 +3,14 @@
 	"description": "Clean and helpful UI to make your digital content editing with websites.fuer.figuren.theater a friendly experience.",
 	"type": "wordpress-muplugin",
 	"license": "GPL-3",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"extra": {
 		"installer-name": "Admin_UI"
 	},
 	"autoload": {
 		"files": [
-			"inc/disable-gutenberg-blocks/namespace.php"
-			"inc/heartbeat-control/namespace.php"
+			"inc/disable-gutenberg-blocks/namespace.php",
+			"inc/heartbeat-control/namespace.php",
 			"inc/namespace.php"
 		]
 	},
