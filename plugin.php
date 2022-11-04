@@ -7,7 +7,7 @@
  * Author URI:      https://figuren.theater
  * Text Domain:     ft-admin-ui
  * Domain Path:     /languages
- * Version:         1.0.1
+ * Version:         1.0.2
  *
  * @package         Figuren_Theater\Admin_UI
  */
@@ -17,5 +17,4 @@ namespace Figuren_Theater\Admin_UI;
 
 const DIRECTORY = __DIR__;
 
-// add_action( 'Figuren_Theater\\Services\\init', __NAMESPACE__ . '\\register' );
-
+add_action( 'altis.modules.init', __NAMESPACE__ . '\\register' );
