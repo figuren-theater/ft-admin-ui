@@ -7,9 +7,11 @@
 
 namespace Figuren_Theater\Admin_UI\Disable_Gutenberg_Blocks;
 
-// use Altis;
+use Altis;
 use Figuren_Theater\Options;
 
+use function add_action;
+use function apply_filters;
 use function remove_submenu_page;
 
 /**
@@ -42,9 +44,10 @@ function bootstrap() {
 
 function load_plugin() {
 
-	require_once WP_PLUGIN_DIR . '/' . BASENAME;
+	require_once Altis\ROOT_DIR . '/vendor/' . BASENAME;
 	
-	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_menu', 11 );
+	// the Plugin hooks itself on 50
+	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_menu', 50 +1 );
 
 }
 
@@ -52,24 +55,27 @@ function load_plugin() {
 
 function filter_options() {
 		
-		$_options = \apply_filters( 'ft-disable-blocks', [
-			'core/freeform',
-			'core/html',
-			'core/loginout',
-			'core/text-columns',
-			['core/embed'=>'animoto'],
-			['core/embed'=>'cloudup'],
-			['core/embed'=>'collegehumor'],
-			['core/embed'=>'crowdsignal'],
-			['core/embed'=>'dailymotion'],
-			['core/embed'=>'imgur'],
-			['core/embed'=>'reverbnation'],
-			['core/embed'=>'smugmug'],
-			['core/embed'=>'speaker-deck'],
-			['core/embed'=>'videopress'],
-			['core/embed'=>'wordpress-tv'],
-			['core/embed'=>'amazon-kindle'],
-		]);
+		$_options = apply_filters( 
+			'ft-disable-blocks',
+			[
+				'core/freeform',
+				'core/html',
+				'core/loginout',
+				'core/text-columns',
+				[ 'core/embed' => 'animoto' ],
+				[ 'core/embed' => 'cloudup' ],
+				[ 'core/embed' => 'collegehumor' ],
+				[ 'core/embed' => 'crowdsignal' ],
+				[ 'core/embed' => 'dailymotion' ],
+				[ 'core/embed' => 'imgur' ],
+				[ 'core/embed' => 'reverbnation' ],
+				[ 'core/embed' => 'smugmug' ],
+				[ 'core/embed' => 'speaker-deck' ],
+				[ 'core/embed' => 'videopress' ],
+				[ 'core/embed' => 'wordpress-tv' ],
+				[ 'core/embed' => 'amazon-kindle' ],
+			]
+		);
 
 		// gets added to the 'OptionsCollection' 
 		// from within itself on creation
