@@ -7,7 +7,7 @@
 
 namespace Figuren_Theater\Admin_UI\Heartbeat_Control;
 
-use Altis;
+use Figuren_Theater\Options;
 
 use function add_action;
 use function apply_filters;
@@ -44,7 +44,7 @@ function bootstrap() {
 
 function load_plugin() {
 
-	require_once Altis\ROOT_DIR . '/vendor/' . BASENAME;
+	require_once FT_VENDOR_DIR . '/' . BASENAME;
 	
 	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_menu', 11 );
 
@@ -55,22 +55,22 @@ function load_plugin() {
 function filter_options() {
 		
 		$_options = [
-			'rules_dash' => [
+			'rules_dash'   => [
 				0 => [
-					'heartbeat_control_behavior' => 'modify',
+					'heartbeat_control_behavior'  => 'modify',
 					'heartbeat_control_frequency' => '93',
-				]
+				],
 			],
-			'rules_front' => [
+			'rules_front'  => [
 				0 => [
 					// do not 'disable' any of the options, because WP Admin will error you either
-					'heartbeat_control_behavior' => 'modify', 
+					'heartbeat_control_behavior'  => 'modify', 
 					'heartbeat_control_frequency' => '183',
-				]
+				],
 			],
 			'rules_editor' => [
 				0 => [
-					'heartbeat_control_behavior' => 'modify',
+					'heartbeat_control_behavior'  => 'modify',
 					'heartbeat_control_frequency' => '93',
 				],
 			],
@@ -96,6 +96,6 @@ function filter_options() {
 		);
 	}
 
-function remove_menu( ) : void {
+function remove_menu() : void {
 	remove_submenu_page( 'options-general.php', 'heartbeat_control_settings' );
 }

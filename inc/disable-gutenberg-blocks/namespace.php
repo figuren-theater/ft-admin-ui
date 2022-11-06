@@ -7,7 +7,6 @@
 
 namespace Figuren_Theater\Admin_UI\Disable_Gutenberg_Blocks;
 
-use Altis;
 use Figuren_Theater\Options;
 
 use function add_action;
@@ -44,7 +43,7 @@ function bootstrap() {
 
 function load_plugin() {
 
-	require_once Altis\ROOT_DIR . '/vendor/' . BASENAME;
+	require_once FT_VENDOR_DIR . '/' . BASENAME;
 	
 	// the Plugin hooks itself on 50
 	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_menu', 50 +1 );

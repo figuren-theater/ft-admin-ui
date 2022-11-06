@@ -33,4 +33,5 @@ function bootstrap() {
 
 	Heartbeat_Control\bootstrap();
 	Disable_Gutenberg_Blocks\bootstrap();
+	Multisite_Enhancements\bootstrap();
 }
