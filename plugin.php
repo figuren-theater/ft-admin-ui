@@ -3,11 +3,11 @@
  * Plugin Name:     figuren.theater | Admin UI
  * Plugin URI:      https://github.com/figuren-theater/ft-admin-ui
  * Description:     Clean and helpful UI to make your digital content editing with websites.fuer.figuren.theater a friendly experience.
- * Author:          Carsten Bach
+ * Author:          figuren.theater
  * Author URI:      https://figuren.theater
- * Text Domain:     ft-admin-ui
+ * Text Domain:     figurentheater
  * Domain Path:     /languages
- * Version:         1.0.6
+ * Version:         1.0.7
  *
  * @package         Figuren_Theater\Admin_UI
  */

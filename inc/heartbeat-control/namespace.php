@@ -10,25 +10,8 @@ namespace Figuren_Theater\Admin_UI\Heartbeat_Control;
 use Figuren_Theater\Options;
 
 use function add_action;
-use function apply_filters;
 use function remove_submenu_page;
 
-/**
- * Register module.
-function register() {
-	Altis\register_module(
-		'admin_ui',
-		DIRECTORY,
-		'Admin_UI',
-		[
-			'defaults' => [
-				'enabled' => true,
-			],
-		],
-		__NAMESPACE__ . '\\bootstrap'
-	);
-}
- */
 const BASENAME = 'heartbeat-control/heartbeat-control.php';
 
 /**
@@ -47,8 +30,6 @@ function load_plugin() {
 	require_once FT_VENDOR_DIR . '/' . BASENAME;
 	
 	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_menu', 11 );
-
-
 }
 
 

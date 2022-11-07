@@ -3,7 +3,7 @@
 	"description": "Clean and helpful UI to make your digital content editing with websites.fuer.figuren.theater a friendly experience.",
 	"type": "wordpress-muplugin",
 	"license": "GPL-3",
-	"version": "1.0.6",
+	"version": "1.0.7",
 	"extra": {
 		"installer-name": "Admin_UI"
 	},
@@ -43,5 +43,14 @@
 		"wpackagist-plugin/disable-gutenberg-blocks": "1.0.9",
 		"wpackagist-plugin/heartbeat-control": "^2.0",
 		"wpackagist-plugin/multisite-enhancements": "1.6.1"
+	},
+	"extra": {
+		"altis": {
+			"install-overrides": [
+				"wpackagist-plugin/disable-gutenberg-blocks",
+				"wpackagist-plugin/heartbeat-control",
+				"wpackagist-plugin/multisite-enhancements"
+			]
+		}
 	}
 }

@@ -13,22 +13,6 @@ use function add_action;
 use function apply_filters;
 use function remove_submenu_page;
 
-/**
- * Register module.
-function register() {
-	Altis\register_module(
-		'admin_ui',
-		DIRECTORY,
-		'Admin_UI',
-		[
-			'defaults' => [
-				'enabled' => true,
-			],
-		],
-		__NAMESPACE__ . '\\bootstrap'
-	);
-}
- */
 const BASENAME = 'disable-gutenberg-blocks/class-disable-gutenberg-blocks.php';
 
 /**
@@ -53,37 +37,37 @@ function load_plugin() {
 
 
 function filter_options() {
-		
-		$_options = apply_filters( 
-			'ft-disable-blocks',
-			[
-				'core/freeform',
-				'core/html',
-				'core/loginout',
-				'core/text-columns',
-				[ 'core/embed' => 'animoto' ],
-				[ 'core/embed' => 'cloudup' ],
-				[ 'core/embed' => 'collegehumor' ],
-				[ 'core/embed' => 'crowdsignal' ],
-				[ 'core/embed' => 'dailymotion' ],
-				[ 'core/embed' => 'imgur' ],
-				[ 'core/embed' => 'reverbnation' ],
-				[ 'core/embed' => 'smugmug' ],
-				[ 'core/embed' => 'speaker-deck' ],
-				[ 'core/embed' => 'videopress' ],
-				[ 'core/embed' => 'wordpress-tv' ],
-				[ 'core/embed' => 'amazon-kindle' ],
-			]
-		);
+	
+	$_options = apply_filters( 
+		'ft-disable-blocks', // @TODO rename incl. NAMESPACE
+		[
+			'core/freeform',
+			'core/html',
+			'core/loginout',
+			'core/text-columns',
+			[ 'core/embed' => 'animoto' ],
+			[ 'core/embed' => 'cloudup' ],
+			[ 'core/embed' => 'collegehumor' ],
+			[ 'core/embed' => 'crowdsignal' ],
+			[ 'core/embed' => 'dailymotion' ],
+			[ 'core/embed' => 'imgur' ],
+			[ 'core/embed' => 'reverbnation' ],
+			[ 'core/embed' => 'smugmug' ],
+			[ 'core/embed' => 'speaker-deck' ],
+			[ 'core/embed' => 'videopress' ],
+			[ 'core/embed' => 'wordpress-tv' ],
+			[ 'core/embed' => 'amazon-kindle' ],
+		]
+	);
 
-		// gets added to the 'OptionsCollection' 
-		// from within itself on creation
-		new Options\Option(
-			'dgb_disabled_blocks',
-			$_options,
-			BASENAME
-		);
-	}
+	// gets added to the 'OptionsCollection' 
+	// from within itself on creation
+	new Options\Option(
+		'dgb_disabled_blocks',
+		$_options,
+		BASENAME
+	);
+}
 
 
 function remove_menu() {
