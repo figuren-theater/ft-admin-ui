@@ -13,6 +13,7 @@ use function add_action;
 use function remove_submenu_page;
 
 const BASENAME = 'heartbeat-control/heartbeat-control.php';
+const PLUGINPATH = FT_VENDOR_DIR . '/wpackagist-plugin/' . BASENAME;
 
 /**
  * Bootstrap module, when enabled.
@@ -27,7 +28,7 @@ function bootstrap() {
 
 function load_plugin() {
 
-	require_once FT_VENDOR_DIR . '/' . BASENAME;
+	require_once PLUGINPATH;
 	
 	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_menu', 11 );
 }

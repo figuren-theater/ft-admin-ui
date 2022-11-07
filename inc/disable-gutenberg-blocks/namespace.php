@@ -14,6 +14,7 @@ use function apply_filters;
 use function remove_submenu_page;
 
 const BASENAME = 'disable-gutenberg-blocks/class-disable-gutenberg-blocks.php';
+const PLUGINPATH = FT_VENDOR_DIR . '/wpackagist-plugin/' . BASENAME;
 
 /**
  * Bootstrap module, when enabled.
@@ -27,7 +28,7 @@ function bootstrap() {
 
 function load_plugin() {
 
-	require_once FT_VENDOR_DIR . '/' . BASENAME;
+	require_once PLUGINPATH;
 	
 	// the Plugin hooks itself on 50
 	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_menu', 50 +1 );
