@@ -33,7 +33,7 @@
 	],
 	"require": {
 		"php": ">=7.1",
-		"figuren-theater/ft-core": "dev-master",
+		"figuren-theater/ft-core": "dev-main",
 		"composer/installers": "~1",
 		"wpackagist-plugin/disable-gutenberg-blocks": "1.0.9",
 		"wpackagist-plugin/heartbeat-control": "^2.0",
