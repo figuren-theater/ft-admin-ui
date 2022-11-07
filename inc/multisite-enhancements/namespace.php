@@ -26,8 +26,15 @@ function bootstrap() {
 function load_plugin() {
 
 	require_once FT_VENDOR_DIR . '/' . BASENAME;
+
+	add_action( 'init', __NAMESPACE__ . '\\unload_i18n', 1000 );
 }
 
+function unload_i18n()
+{
+	// \do_action( 'qm/debug', \unload_textdomain( 'multisite-enhancements' ) );
+	\unload_textdomain( 'multisite-enhancements' );
+}
 
 function filter_options() {
 	
