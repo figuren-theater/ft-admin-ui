@@ -3,7 +3,7 @@
 	"description": "Clean and helpful UI to make your digital content editing with websites.fuer.figuren.theater a friendly experience.",
 	"type": "wordpress-muplugin",
 	"license": "GPL-3",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"autoload": {
 		"files": [
 			"inc/multisite-enhancements/namespace.php",
