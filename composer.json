@@ -3,7 +3,7 @@
 	"description": "Clean and helpful UI to make your digital content editing with websites.fuer.figuren.theater a friendly experience.",
 	"type": "wordpress-muplugin",
 	"license": "GPL-3",
-	"version": "1.0.10",
+	"version": "1.0.11",
 	"autoload": {
 		"files": [
 			"inc/multisite-enhancements/namespace.php",
@@ -11,9 +11,9 @@
 			"inc/heartbeat-control/namespace.php",
 			"inc/namespace.php"
 		],
-		"classmap": [
-			"inc/"
-		]
+        "psr-4": {
+            "Figuren_Theater\\Admin_UI\\": "inc/"
+        }
 	},
 	"authors": [
 		{
