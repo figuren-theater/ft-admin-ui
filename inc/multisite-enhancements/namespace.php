@@ -9,7 +9,11 @@ namespace Figuren_Theater\Admin_UI\Multisite_Enhancements;
 
 use Figuren_Theater\Options;
 
+use FT_VENDOR_DIR;
+
 use function add_action;
+use function add_filter;
+use function remove_action;
 
 const BASENAME   = 'multisite-enhancements/multisite-enhancements.php';
 const PLUGINPATH = FT_VENDOR_DIR . '/wpackagist-plugin/' . BASENAME;
@@ -20,20 +24,29 @@ function bootstrap() {
 
 	add_action( 'Figuren_Theater\loaded', __NAMESPACE__ . '\\filter_options', 11 );
 	
-	add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin' );
+	add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin', 0 );
+	add_action( 'plugins_loaded', __NAMESPACE__ . '\\unload_plugin_ui', 20 );
 }
 
 function load_plugin() {
 
 	require_once PLUGINPATH;
 
-	add_action( 'init', __NAMESPACE__ . '\\unload_i18n', 1000 );
+	// \unload_textdomain( 'multisite-enhancements' ); // does nothing ...
+	add_filter( 'load_textdomain_mofile', __NAMESPACE__ . '\\unload_i18n', 0, 2 );
 }
 
-function unload_i18n()
-{
-	// \do_action( 'qm/debug', \unload_textdomain( 'multisite-enhancements' ) );
-	\unload_textdomain( 'multisite-enhancements' );
+function unload_plugin_ui() {
+
+	remove_action( 'init', array( 'Multisite_Enhancements_Settings', 'init' ) );
+}
+
+
+function unload_i18n( string $mofile, string $domain ) : string {
+	if ( 'multisite-enhancements' === $domain ) {
+		return '';
+	}
+	return $mofile;
 }
 
 function filter_options() {

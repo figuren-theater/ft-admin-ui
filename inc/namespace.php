@@ -7,7 +7,7 @@
 
 namespace Figuren_Theater\Admin_UI;
 
-use Altis;
+use function Altis\register_module;
 
 /**
  * Register module.
@@ -32,6 +32,7 @@ function register() {
 function bootstrap() {
 
 	Heartbeat_Control\bootstrap();
+	Dashboard_Widgets\bootstrap();
 	Disable_Gutenberg_Blocks\bootstrap();
 	Multisite_Enhancements\bootstrap();
 }

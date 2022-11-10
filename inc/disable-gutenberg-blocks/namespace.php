@@ -9,11 +9,13 @@ namespace Figuren_Theater\Admin_UI\Disable_Gutenberg_Blocks;
 
 use Figuren_Theater\Options;
 
+use FT_VENDOR_DIR;
+
 use function add_action;
 use function apply_filters;
 use function remove_submenu_page;
 
-const BASENAME = 'disable-gutenberg-blocks/class-disable-gutenberg-blocks.php';
+const BASENAME   = 'disable-gutenberg-blocks/class-disable-gutenberg-blocks.php';
 const PLUGINPATH = FT_VENDOR_DIR . '/wpackagist-plugin/' . BASENAME;
 
 /**

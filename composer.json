@@ -3,12 +3,15 @@
 	"description": "Clean and helpful UI to make your digital content editing with websites.fuer.figuren.theater a friendly experience.",
 	"type": "wordpress-muplugin",
 	"license": "GPL-3",
-	"version": "1.0.12",
+	"version": "1.0.13",
 	"autoload": {
 		"files": [
-			"inc/multisite-enhancements/namespace.php",
+			"inc/dashboard-widgets/ft-news.php",
+			"inc/dashboard-widgets/recent-drafts.php",
+			"inc/dashboard-widgets/namespace.php",
 			"inc/disable-gutenberg-blocks/namespace.php",
 			"inc/heartbeat-control/namespace.php",
+			"inc/multisite-enhancements/namespace.php",
 			"inc/namespace.php"
 		],
 		"classmap": [
@@ -22,10 +25,10 @@
 		}
 	],
 	"repositories": [
-		{
-			"type": "git",
-			"url": "https://github.com/figuren-theater/ft-core"
-		},
+        {
+            "type": "git",
+            "url": "https://github.com/figuren-theater/ft-options"
+        },
 		{
 			"type": "composer",
 			"url" : "https://wpackagist.org"
@@ -33,8 +36,7 @@
 	],
 	"require": {
 		"php": ">=7.1",
-		"figuren-theater/ft-core": "^1",
-		"composer/installers": "~1",
+        "figuren-theater/ft-options": "^1",
 		"wpackagist-plugin/disable-gutenberg-blocks": "1.0.9",
 		"wpackagist-plugin/heartbeat-control": "^2.0",
 		"wpackagist-plugin/multisite-enhancements": "1.6.1"
