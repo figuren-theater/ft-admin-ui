@@ -1,7 +1,7 @@
 
 {
   "name": "ft-admin-ui",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "main": "Gruntfile.js",
   "author": "Carsten Bach",
   "scripts" : {

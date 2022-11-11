@@ -2,8 +2,13 @@
 	"name": "figuren-theater/ft-admin-ui",
 	"description": "Clean and helpful UI to make your digital content editing with websites.fuer.figuren.theater a friendly experience.",
 	"type": "wordpress-muplugin",
-	"license": "GPL-3",
-	"version": "1.0.13",
+    "license": "GPL-3.0-or-later",
+	"authors": [
+		{
+			"name": "figuren.theater",
+			"email": "info@figuren.theater"
+		}
+	],
 	"autoload": {
 		"files": [
 			"inc/dashboard-widgets/ft-news.php",
@@ -18,12 +23,6 @@
 			"inc/"
 		]
 	},
-	"authors": [
-		{
-			"name": "figuren.theater",
-			"email": "info@figuren.theater"
-		}
-	],
 	"repositories": [
         {
             "type": "git",
