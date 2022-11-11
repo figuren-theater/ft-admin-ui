@@ -36,7 +36,7 @@
 	"require": {
 		"php": ">=7.1",
         "figuren-theater/ft-options": "^1",
-		"wpackagist-plugin/disable-gutenberg-blocks": "1.0.9",
+		"wpackagist-plugin/disable-gutenberg-blocks": "^1.0",
 		"wpackagist-plugin/heartbeat-control": "^2.0",
 		"wpackagist-plugin/multisite-enhancements": "1.6.1"
 	},
