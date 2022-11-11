@@ -7,6 +7,7 @@
 
 namespace Figuren_Theater\Admin_UI;
 
+use Altis;
 use function Altis\register_module;
 
 /**
