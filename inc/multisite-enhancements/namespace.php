@@ -63,7 +63,7 @@ function filter_options() {
 		'add-site-status'     => 1,
 		'add-ssl-identifier'  => 1,
 		'add-manage-comments' => 1,
-		'add-new-plugin'      => 1,
+		'add-new-plugin'      => 0,
 		'filtering-themes'    => 1,
 		'change-footer'       => 1,
 		'delete-settings'     => 1,

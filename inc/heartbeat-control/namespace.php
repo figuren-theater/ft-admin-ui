@@ -35,6 +35,12 @@ function load_plugin() {
 	
 	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_menu', 11 );
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\remove_scripts', 9 );
+
+	// might be a little too global
+	// but this saves: 30kb
+	add_filter( 'cmb2_enqueue_css', '__return_false', 0 );
+
+	
 	add_filter( 'load_textdomain_mofile', __NAMESPACE__ . '\\unload_i18n', 0, 2 );
 }
 

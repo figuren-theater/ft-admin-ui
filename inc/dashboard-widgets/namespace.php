@@ -14,7 +14,8 @@ use function add_action;
  */
 function bootstrap() {
 
-	add_action( 'admin_menu', __NAMESPACE__ . '\\load', 0 );
+	// Hook onto 'admin_init' to make sure AJAX is available.
+	add_action( 'admin_init', __NAMESPACE__ . '\\load', 0 );
 }
 
 function load() {
