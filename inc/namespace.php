@@ -14,15 +14,19 @@ use function Altis\register_module;
  * Register module.
  */
 function register() {
+
+	$default_settings = [
+		'enabled'         => true, // needs to be set
+	];
+	$options = [
+		'defaults' => $default_settings,
+	];
+
 	Altis\register_module(
 		'admin_ui',
 		DIRECTORY,
 		'Admin_UI',
-		[
-			'defaults' => [
-				'enabled' => true,
-			],
-		],
+		$options,
 		__NAMESPACE__ . '\\bootstrap'
 	);
 }
@@ -32,8 +36,12 @@ function register() {
  */
 function bootstrap() {
 
+	// Plugins
 	Heartbeat_Control\bootstrap();
-	Dashboard_Widgets\bootstrap();
 	Disable_Gutenberg_Blocks\bootstrap();
 	Multisite_Enhancements\bootstrap();
+	
+	// Best Practices & Misc.
+	Dashboard_Widgets\bootstrap();
+	Pending_Posts_Bubble\bootstrap();
 }

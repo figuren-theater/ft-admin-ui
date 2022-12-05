@@ -1,8 +1,8 @@
 <?php
 /**
- * Figuren_Theater Admin_UI Heartbeat_Control.
+ * Figuren_Theater Admin_UI Disable_Gutenberg_Blocks.
  *
- * @package figuren-theater/admin_ui/heartbeat_control
+ * @package figuren-theater/admin_ui/disable_gutenberg_blocks
  */
 
 namespace Figuren_Theater\Admin_UI\Disable_Gutenberg_Blocks;
@@ -34,33 +34,42 @@ function load_plugin() {
 	
 	// the Plugin hooks itself on 50
 	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_menu', 50 +1 );
-
 }
 
 
-
 function filter_options() {
-	
+
+	$blocks_to_disable = [
+		'core/freeform',
+		'core/html',
+		'core/loginout',
+		'core/text-columns',
+		[ 'core/embed' => 'animoto' ],
+		[ 'core/embed' => 'cloudup' ],
+		[ 'core/embed' => 'collegehumor' ],
+		[ 'core/embed' => 'crowdsignal' ],
+		[ 'core/embed' => 'dailymotion' ],
+		[ 'core/embed' => 'imgur' ],
+		[ 'core/embed' => 'reverbnation' ],
+		[ 'core/embed' => 'smugmug' ],
+		[ 'core/embed' => 'speaker-deck' ],
+		[ 'core/embed' => 'videopress' ],
+		[ 'core/embed' => 'wordpress-tv' ],
+		[ 'core/embed' => 'amazon-kindle' ],
+	];
+
+	\apply_filters_deprecated( 
+		'ft-disable-blocks',
+		[ $blocks_to_disable ],
+		'2.11',
+		__NAMESPACE__,
+		'Take part in the future now: Replace your filter calls!'
+	);
+
+
 	$_options = apply_filters( 
-		'ft-disable-blocks', // @TODO rename incl. NAMESPACE
-		[
-			'core/freeform',
-			'core/html',
-			'core/loginout',
-			'core/text-columns',
-			[ 'core/embed' => 'animoto' ],
-			[ 'core/embed' => 'cloudup' ],
-			[ 'core/embed' => 'collegehumor' ],
-			[ 'core/embed' => 'crowdsignal' ],
-			[ 'core/embed' => 'dailymotion' ],
-			[ 'core/embed' => 'imgur' ],
-			[ 'core/embed' => 'reverbnation' ],
-			[ 'core/embed' => 'smugmug' ],
-			[ 'core/embed' => 'speaker-deck' ],
-			[ 'core/embed' => 'videopress' ],
-			[ 'core/embed' => 'wordpress-tv' ],
-			[ 'core/embed' => 'amazon-kindle' ],
-		]
+		__NAMESPACE__,
+		$blocks_to_disable
 	);
 
 	// gets added to the 'OptionsCollection' 
