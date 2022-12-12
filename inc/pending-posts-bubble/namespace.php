@@ -21,6 +21,7 @@ use function get_post_types_by_support;
 use function get_transient;
 use function set_transient;
 use function wp_count_posts;
+
 /**
  * Bootstrap module, when enabled.
  */

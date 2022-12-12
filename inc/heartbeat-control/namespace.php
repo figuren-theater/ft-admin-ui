@@ -83,6 +83,16 @@ function filter_options() {
 		$_options,
 		BASENAME
 	);
+
+	if( ! function_exists('get_plugin_data') ){
+		require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	}
+	$plugin_data = \get_plugin_data( PLUGINPATH, false, false );
+	new Options\Option(
+		'heartbeat_control_version',
+		$plugin_data['Version'], // we can surely set this, as it marks the version, we controll with exact THIS-FILEs code
+		BASENAME
+	);
 	new Options\Option(
 		'imagify_settings',
 		0,

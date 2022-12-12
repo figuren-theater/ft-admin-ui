@@ -21,3 +21,4 @@ This also includes theese changes to **Dashboard Widgets**:
 - Show drafts of all public post_types inside the *Recent Drafts* Widget.
 - Show the last changelog from [websites.fuer.figuren.theater](https://websites.fuer.figuren.theater/) and the two latest news from [meta.figuren.theater](https://meta.figuren.theater/) as its own Widget.
 - Add some Admin Menu Notification Bubbles with the count of pending-reviews for each post_type.
+- Add Featured Images in an Admin Column and in Quick Edit

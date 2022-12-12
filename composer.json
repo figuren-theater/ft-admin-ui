@@ -27,6 +27,7 @@
 			"inc/dashboard-widgets/ft-news.php",
 			"inc/dashboard-widgets/recent-drafts.php",
 			"inc/dashboard-widgets/namespace.php",
+			"inc/featured-image-column/namespace.php",
 			"inc/pending-posts-bubble/namespace.php",
 			"inc/disable-gutenberg-blocks/namespace.php",
 			"inc/heartbeat-control/namespace.php",

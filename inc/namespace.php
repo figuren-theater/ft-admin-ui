@@ -40,8 +40,9 @@ function bootstrap() {
 	Heartbeat_Control\bootstrap();
 	Disable_Gutenberg_Blocks\bootstrap();
 	Multisite_Enhancements\bootstrap();
-	
+
 	// Best Practices & Misc.
 	Dashboard_Widgets\bootstrap();
+	Featured_Image_Column\bootstrap();
 	Pending_Posts_Bubble\bootstrap();
 }
