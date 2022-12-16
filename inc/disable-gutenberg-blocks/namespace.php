@@ -40,8 +40,8 @@ function load_plugin() {
 function filter_options() {
 
 	$blocks_to_disable = [
-		'core/freeform',
-		'core/html',
+		// 'core/freeform',
+		// 'core/html',
 		'core/loginout',
 		'core/text-columns',
 		[ 'core/embed' => 'animoto' ],

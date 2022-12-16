@@ -17,6 +17,7 @@ function register() {
 
 	$default_settings = [
 		'enabled'         => true, // needs to be set
+		'emoji-toolbar'   => false,
 	];
 	$options = [
 		'defaults' => $default_settings,
@@ -37,6 +38,7 @@ function register() {
 function bootstrap() {
 
 	// Plugins
+	Emoji_Toolbar\bootstrap();
 	Heartbeat_Control\bootstrap();
 	Disable_Gutenberg_Blocks\bootstrap();
 	Multisite_Enhancements\bootstrap();
