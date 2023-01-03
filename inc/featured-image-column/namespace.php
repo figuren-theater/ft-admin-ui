@@ -72,15 +72,17 @@ function featured_image_column( array $cols ) : array {
 
 	// get 
 	global $post_type;
+	$post_type_obj = get_post_type_object( $post_type );
 
-$_post_type_labels = get_post_type_labels( get_post_type_object( $post_type ) );
-// error_log( var_export($_post_type_labels,true));
+	if ( empty( $post_type_obj ) )
+		return $cols;
+	
+	$_post_type_labels = get_post_type_labels( $post_type_obj );
+
 	$cols = array_slice( $cols, 0, 1, true )
-	// + array( 'featured_image' => __('Image') ) // our new column
 	+ array( 'featured_image' => $_post_type_labels->featured_image ) // our new column
 	+ array_slice( $cols, 1, NULL, true );
 
-	// $cols['featured_image'] = 'F.t eatured Image';
 	return $cols;
 }
 
@@ -88,9 +90,12 @@ $_post_type_labels = get_post_type_labels( get_post_type_object( $post_type ) );
 function admin_footer(){
 	// get 
 	global $post_type;
+	$post_type_obj = get_post_type_object( $post_type );
 
-	$_post_type_labels = get_post_type_labels( get_post_type_object( $post_type ) );
+	if ( empty( $post_type_obj ) )
+		return;
 
+	$_post_type_labels = get_post_type_labels( $post_type_obj );
 	?>
 	<style type="text/css">
 		a.ft-upload-img{
@@ -213,7 +218,12 @@ function featured_image_quick_edit( string $column_name, string $post_type ) {
 		return;
 	
 	// get 
-	$_post_type_labels = get_post_type_labels( get_post_type_object( $post_type ) );
+	$post_type_obj = get_post_type_object( $post_type );
+
+	if ( empty( $post_type_obj ) )
+		return;
+	
+	$_post_type_labels = get_post_type_labels( $post_type_obj );
 
 	?>
 	<fieldset id="ft_featured_image" class="inline-edit-col-left">
