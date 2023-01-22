@@ -153,13 +153,14 @@
         },
         {
             "name": "figuren-theater/ft-options",
-            "version": "1.1.7",
+            "version": "1.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/figuren-theater/ft-options",
-                "reference": "8f6bbd22d0dcfc3244063a73ce77f11979ae30b4"
+                "reference": "f9d904e5debdcf475b575dc5be90b9122f83c231"
             },
             "require": {
+                "markjaquith/wp-tlc-transients": "^1.0",
                 "php": ">=7.1"
             },
             "type": "wordpress-muplugin",
@@ -196,7 +197,53 @@
                 "issues": "https://github.com/figuren-theater/ft-options/issues",
                 "source": "https://github.com/figuren-theater/ft-options"
             },
-            "time": "2022-12-31T01:06:34+00:00"
+            "time": "2023-01-17T20:48:17+00:00"
+        },
+        {
+            "name": "markjaquith/wp-tlc-transients",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/markjaquith/WP-TLC-Transients.git",
+                "reference": "bdbe0691db6adaf08af0dee6c70ebebe881633d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/markjaquith/WP-TLC-Transients/zipball/bdbe0691db6adaf08af0dee6c70ebebe881633d8",
+                "reference": "bdbe0691db6adaf08af0dee6c70ebebe881633d8",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "functions.php"
+                ],
+                "classmap": [
+                    "class-tlc-transient.php",
+                    "class-tlc-transient-update-server.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Jaquith",
+                    "homepage": "http://markjaquith.com/"
+                }
+            ],
+            "description": "A WP transients interface with support for soft-expiration, background updating of the transients.",
+            "homepage": "https://github.com/markjaquith/WP-TLC-Transients",
+            "keywords": [
+                "cache",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/markjaquith/WP-TLC-Transients/issues",
+                "source": "https://github.com/markjaquith/WP-TLC-Transients"
+            },
+            "time": "2013-05-07T18:12:10+00:00"
         },
         {
             "name": "wpackagist-plugin/disable-gutenberg-blocks",
@@ -218,15 +265,15 @@
         },
         {
             "name": "wpackagist-plugin/emoji-toolbar",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/emoji-toolbar/",
-                "reference": "tags/1.2.2"
+                "reference": "tags/1.2.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/emoji-toolbar.1.2.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/emoji-toolbar.1.2.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
