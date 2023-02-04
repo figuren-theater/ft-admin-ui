@@ -1,6 +1,6 @@
 {
 	"name": "figuren-theater/ft-admin-ui",
-	"description": "Clean and helpful UI to make your digital content editing with websites.fuer.figuren.theater a friendly experience.",
+	"description": "Clean and helpful UI to make digital content editing for your figuren.theater WordPress website a friendly experience.",
     "homepage": "https://websites.fuer.figuren.theater",
     "type": "wordpress-muplugin",
     "keywords": ["wordpress", "Admin", "UI", "MP6", "widgets"],
