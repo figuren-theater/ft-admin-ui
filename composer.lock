@@ -153,11 +153,11 @@
         },
         {
             "name": "figuren-theater/ft-options",
-            "version": "1.1.9",
+            "version": "1.1.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/figuren-theater/ft-options",
-                "reference": "f9d904e5debdcf475b575dc5be90b9122f83c231"
+                "reference": "6ac6d17165a472f1927fe42f891d62a79abb5765"
             },
             "require": {
                 "markjaquith/wp-tlc-transients": "^1.0",
@@ -184,7 +184,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Options Management for a WordPress Multisite like figuren.theater",
+            "description": "Options management via code for a WordPress multisite like figuren.theater",
             "homepage": "https://websites.fuer.figuren.theater",
             "keywords": [
                 "multisite",
@@ -197,7 +197,7 @@
                 "issues": "https://github.com/figuren-theater/ft-options/issues",
                 "source": "https://github.com/figuren-theater/ft-options"
             },
-            "time": "2023-01-17T20:48:17+00:00"
+            "time": "2023-02-02T15:23:09+00:00"
         },
         {
             "name": "markjaquith/wp-tlc-transients",
