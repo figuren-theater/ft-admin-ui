@@ -66,7 +66,6 @@ Thoose are completely managed by code and lack of their typical UI.
 * [Disable Gutenberg Blocks](https://wordpress.org/plugins/disable-gutenberg-blocks/#developers)
 * [Emoji Toolbar](https://wordpress.org/plugins/emoji-toolbar/#developers)
 * [Heartbeat Control](https://wordpress.org/plugins/heartbeat-control/#developers)
-* [Multisite Enhancements](https://wordpress.org/plugins/multisite-enhancements/#developers)
 
 
 ## What does this package do in addition?

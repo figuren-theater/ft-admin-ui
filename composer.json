@@ -32,7 +32,6 @@
 			"inc/pending-posts-bubble/namespace.php",
 			"inc/disable-gutenberg-blocks/namespace.php",
 			"inc/heartbeat-control/namespace.php",
-			"inc/multisite-enhancements/namespace.php",
 			"inc/namespace.php"
 		],
 		"classmap": [
@@ -54,16 +53,14 @@
         "figuren-theater/ft-options": "^1",
 		"wpackagist-plugin/disable-gutenberg-blocks": "^1.0",
         "wpackagist-plugin/emoji-toolbar":"^1.2",
-		"wpackagist-plugin/heartbeat-control": "^2.0",
-		"wpackagist-plugin/multisite-enhancements": "^1.6"
+		"wpackagist-plugin/heartbeat-control": "^2.0"
 	},
 	"extra": {
 		"altis": {
 			"install-overrides": [
 				"wpackagist-plugin/disable-gutenberg-blocks",
                 "wpackagist-plugin/emoji-toolbar",
-				"wpackagist-plugin/heartbeat-control",
-				"wpackagist-plugin/multisite-enhancements"
+				"wpackagist-plugin/heartbeat-control"
 			]
 		}
 	}

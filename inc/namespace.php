@@ -10,13 +10,15 @@ namespace Figuren_Theater\Admin_UI;
 use Altis;
 use function Altis\register_module;
 
+use function is_admin;
+
 /**
  * Register module.
  */
 function register() {
 
 	$default_settings = [
-		'enabled'         => true, // needs to be set
+		'enabled'         => is_admin(), // needs to be set
 		'emoji-toolbar'   => false,
 	];
 	$options = [
@@ -41,7 +43,6 @@ function bootstrap() {
 	Emoji_Toolbar\bootstrap();
 	Heartbeat_Control\bootstrap();
 	Disable_Gutenberg_Blocks\bootstrap();
-	Multisite_Enhancements\bootstrap();
 
 	// Best Practices & Misc.
 	Dashboard_Widgets\bootstrap();
