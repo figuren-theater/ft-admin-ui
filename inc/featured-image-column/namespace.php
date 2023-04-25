@@ -19,9 +19,13 @@ use function add_filter;
 use function did_action;
 use function esc_url;
 use function get_post_thumbnail_id;
+use function get_post_type_labels;
+use function get_post_type_object;
+use function get_post_types_by_support;
 use function has_post_thumbnail;
 use function wp_enqueue_media;
 use function wp_get_attachment_image_url;
+
 /**
  * Bootstrap module, when enabled.
  */
@@ -36,7 +40,6 @@ function load() {
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\include_wp_enqueue_media' );
 
 	add_action( 'quick_edit_custom_box',  __NAMESPACE__ . '\\featured_image_quick_edit', 10, 2 );
-
 
 	array_map( 
 		function ( $post_type )	{
