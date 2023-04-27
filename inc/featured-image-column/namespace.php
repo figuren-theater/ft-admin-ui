@@ -36,6 +36,12 @@ function bootstrap() {
 }
 
 function load() {
+	global $pagenow;
+
+	// only load on admin list views
+	if ('edit.php' !== $pagenow) {
+		return;
+	}
 	
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\include_wp_enqueue_media' );
 
