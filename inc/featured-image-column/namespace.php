@@ -23,6 +23,9 @@ use function get_post_type_labels;
 use function get_post_type_object;
 use function get_post_types_by_support;
 use function has_post_thumbnail;
+use function is_admin;
+use function is_network_admin;
+use function is_user_admin;
 use function wp_enqueue_media;
 use function wp_get_attachment_image_url;
 
@@ -36,6 +39,15 @@ function bootstrap() {
 }
 
 function load() {
+	global $pagenow;
+
+	if ( ! is_admin() || is_network_admin() || is_user_admin() )
+		return;
+
+	// only load on admin list views
+	if ('edit.php' !== $pagenow) {
+		return;
+	}
 	
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\include_wp_enqueue_media' );
 
