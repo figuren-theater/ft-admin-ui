@@ -14,16 +14,18 @@ use function is_admin;
 
 /**
  * Register module.
+ *
+ * @return void
  */
 function register() {
 
-	$default_settings = [
-		'enabled'         => is_admin(), // needs to be set
-		'emoji-toolbar'   => false,
-	];
-	$options = [
+	$default_settings = array(
+		'enabled'       => is_admin(), // Is needed by Altis!
+		'emoji-toolbar' => false,
+	);
+	$options          = array(
 		'defaults' => $default_settings,
-	];
+	);
 
 	Altis\register_module(
 		'admin_ui',
