@@ -115,7 +115,7 @@ who participated in this project.
 
 ## License
 
-This project is licensed under the [GPL-3.0-or-later](LICENSE.md), see the [LICENSE](LICENSE) file for
+This project is licensed under the **GPL-3.0-or-later**, see the [LICENSE](LICENSE) file for
 details
 
 ## Acknowledgments
