@@ -877,19 +877,20 @@
         },
         {
             "name": "figuren-theater/code-quality",
-            "version": "0.4.5",
+            "version": "0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/figuren-theater/code-quality.git",
-                "reference": "937958f04fe748e63f4570b696884d4e34f207ed"
+                "reference": "3b0d0a02277085840e883c41834cb8f1df38ae7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/figuren-theater/code-quality/zipball/937958f04fe748e63f4570b696884d4e34f207ed",
-                "reference": "937958f04fe748e63f4570b696884d4e34f207ed",
+                "url": "https://api.github.com/repos/figuren-theater/code-quality/zipball/3b0d0a02277085840e883c41834cb8f1df38ae7b",
+                "reference": "3b0d0a02277085840e883c41834cb8f1df38ae7b",
                 "shasum": ""
             },
             "require": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
                 "ergebnis/composer-normalize": "^2.31",
                 "figuren-theater/coding-standards": "^0",
                 "figuren-theater/phpstan": "^1",
@@ -925,20 +926,20 @@
                 "issues": "https://github.com/figuren-theater/code-quality/issues",
                 "source": "https://github.com/figuren-theater/code-quality"
             },
-            "time": "2023-07-05T11:39:48+00:00"
+            "time": "2023-07-11T12:28:47+00:00"
         },
         {
             "name": "figuren-theater/coding-standards",
-            "version": "0.2.1",
+            "version": "0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/figuren-theater/coding-standards.git",
-                "reference": "c415112456effadbbe3cbefb436e65af54685f5f"
+                "reference": "cf929e5b751094b2df24802e05cbf483df147622"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/figuren-theater/coding-standards/zipball/c415112456effadbbe3cbefb436e65af54685f5f",
-                "reference": "c415112456effadbbe3cbefb436e65af54685f5f",
+                "url": "https://api.github.com/repos/figuren-theater/coding-standards/zipball/cf929e5b751094b2df24802e05cbf483df147622",
+                "reference": "cf929e5b751094b2df24802e05cbf483df147622",
                 "shasum": ""
             },
             "require": {
@@ -974,7 +975,7 @@
                 "issues": "https://github.com/figuren-theater/coding-standards/issues",
                 "source": "https://github.com/figuren-theater/coding-standards"
             },
-            "time": "2023-06-26T09:29:32+00:00"
+            "time": "2023-07-11T12:21:47+00:00"
         },
         {
             "name": "figuren-theater/phpstan",
