@@ -36,7 +36,7 @@
 		"wpackagist-plugin/heartbeat-control": "^2.0"
 	},
 	"require-dev": {
-		"figuren-theater/code-quality": "*",
+		"figuren-theater/code-quality": "*"
 	},
 	"repositories": [
 		{
