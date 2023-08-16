@@ -2,13 +2,12 @@
 /**
  * Figuren_Theater Admin_UI.
  *
- * @package figuren-theater/admin_ui
+ * @package figuren-theater/ft-admin-ui
  */
 
 namespace Figuren_Theater\Admin_UI;
 
 use Altis;
-use function Altis\register_module;
 
 use function is_admin;
 
@@ -17,15 +16,15 @@ use function is_admin;
  *
  * @return void
  */
-function register() {
+function register() :void {
 
-	$default_settings = array(
+	$default_settings = [
 		'enabled'       => is_admin(), // Is needed by Altis!
 		'emoji-toolbar' => false,
-	);
-	$options          = array(
+	];
+	$options          = [
 		'defaults' => $default_settings,
-	);
+	];
 
 	Altis\register_module(
 		'admin_ui',

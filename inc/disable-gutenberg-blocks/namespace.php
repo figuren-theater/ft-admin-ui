@@ -2,7 +2,7 @@
 /**
  * Figuren_Theater Admin_UI Disable_Gutenberg_Blocks.
  *
- * @package figuren-theater/admin_ui/disable_gutenberg_blocks
+ * @package figuren-theater/ft-admin-ui
  */
 
 namespace Figuren_Theater\Admin_UI\Disable_Gutenberg_Blocks;
@@ -24,14 +24,14 @@ const PLUGINPATH = FT_VENDOR_DIR . '/wpackagist-plugin/' . BASENAME;
 function bootstrap() {
 
 	add_action( 'Figuren_Theater\loaded', __NAMESPACE__ . '\\filter_options', 11 );
-	
+
 	add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin' );
 }
 
 function load_plugin() {
 
 	require_once PLUGINPATH;
-	
+
 	// the Plugin hooks itself on 50
 	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_menu', 50 +1 );
 }
@@ -58,7 +58,7 @@ function filter_options() {
 		[ 'core/embed' => 'amazon-kindle' ],
 	];
 
-	\apply_filters_deprecated( 
+	\apply_filters_deprecated(
 		'ft-disable-blocks',
 		[ $blocks_to_disable ],
 		'2.11',
@@ -67,12 +67,12 @@ function filter_options() {
 	);
 
 
-	$_options = apply_filters( 
+	$_options = apply_filters(
 		__NAMESPACE__,
 		$blocks_to_disable
 	);
 
-	// gets added to the 'OptionsCollection' 
+	// gets added to the 'OptionsCollection'
 	// from within itself on creation
 	new Options\Option(
 		'dgb_disabled_blocks',

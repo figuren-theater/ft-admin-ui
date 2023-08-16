@@ -1,8 +1,8 @@
-<?php # -*- coding: utf-8 -*-
+<?php // -*- coding: utf-8 -*-
 /*
 * Plugin Name:  figuren.theater NETWORK | Dashboard Widgets with RSS from websites.fuer.figuren.theater and meta.figuren.theater
-* Description:  
-* Plugin URI:   
+* Description:
+* Plugin URI:
 * Version:      2021.01.04
 * Author:       Carsten Bach
 * Author URI:   https://carsten-bach.de
@@ -12,7 +12,6 @@ namespace Figuren_Theater\Admin_UI\Dashboard_Widgets\FT_News;
 
 use ABSPATH;
 
-use function __;
 use function add_action;
 use function apply_filters;
 use function set_current_screen;
@@ -20,47 +19,43 @@ use function wp_add_dashboard_widget;
 use function wp_dashboard_cached_rss_widget;
 use function wp_die;
 use function wp_widget_rss_output;
+use function __;
 
-defined( 'ABSPATH' ) OR exit;
+defined( 'ABSPATH' ) or exit;
 
 function bootstrap() {
 
 	/**
 	 * Register the dashboard widget.
 	 *
-	 * @see https://developer.wordpress.org/apis/handbook/dashboard-widgets/ 
-	 *
+	 * @see https://developer.wordpress.org/apis/handbook/dashboard-widgets/
 	 */
 	add_action( 'admin_init', __NAMESPACE__ . '\\ajax' );
-	
+
 	add_action( 'wp_dashboard_setup', __NAMESPACE__ . '\\dashboard_setup' );
 	add_action( 'wp_network_dashboard_setup', __NAMESPACE__ . '\\dashboard_setup' );
 	// special view at /wp-admin/user/
-	add_action( 'wp_user_dashboard_setup', __NAMESPACE__ . '\\dashboard_setup' ); 
+	add_action( 'wp_user_dashboard_setup', __NAMESPACE__ . '\\dashboard_setup' );
 
-	add_action( 'admin_print_footer_scripts-index.php', __NAMESPACE__. '\\scripts_and_styles', 999 );
+	add_action( 'admin_print_footer_scripts-index.php', __NAMESPACE__ . '\\scripts_and_styles', 999 );
 }
 
-
-function ajax()
-{
+function ajax() {
 	add_action( 'wp_ajax_ft_dashboard_widgets', __NAMESPACE__ . '\\wp_ajax_ft_dashboard_widgets', 1 );
 }
 
 function dashboard_setup() {
 	// WordPress Events and News.
-	wp_add_dashboard_widget( 
-		'ft_dashboard_primary', 
-		__( 'Neues aus dem figuren.theater Netzwerk' ), 
+	wp_add_dashboard_widget(
+		'ft_dashboard_primary',
+		__( 'Neues aus dem figuren.theater Netzwerk' ),
 		__NAMESPACE__ . '\\dashboard_news',
-		'column3', 
+		'column3',
 		// 'normal',
 		'high',
 	);
 
 }
-
-
 
 /**
  * Renders the Events and News dashboard widget.
@@ -68,7 +63,7 @@ function dashboard_setup() {
  * @since 4.8.0
  */
 function dashboard_news() {
-?>
+	?>
 	<div class="wordpress-news hide-if-no-js">
 		<?php ft_dashboard_primary(); ?>
 	</div>
@@ -119,8 +114,8 @@ function dashboard_news() {
  * @since 4.8.0 Removed popular plugins feed.
  */
 function ft_dashboard_primary() {
-	$feeds = array(
-		'webs'   => array(
+	$feeds = [
+		'webs'   => [
 
 			/**
 			 * Filters the primary link URL for the 'WordPress Events and News' dashboard widget.
@@ -152,8 +147,8 @@ function ft_dashboard_primary() {
 			'show_summary' => 1,
 			'show_author'  => 0,
 			'show_date'    => 1,
-		),
-		'meta' => array(
+		],
+		'meta' => [
 
 			/**
 			 * Filters the secondary link URL for the 'WordPress Events and News' dashboard widget.
@@ -193,17 +188,15 @@ function ft_dashboard_primary() {
 			'show_summary' => 1,
 			'show_author'  => 1,
 			'show_date'    => 1,
-		),
-	);
+		],
+	];
 
-	wp_dashboard_cached_rss_widget( 'ft_dashboard_primary', __NAMESPACE__. '\\ft_dashboard_primary_output', $feeds );
-#ft_dashboard_primary_output( 'ft_dashboard_primary', $feeds);
-
-
+	wp_dashboard_cached_rss_widget( 'ft_dashboard_primary', __NAMESPACE__ . '\\ft_dashboard_primary_output', $feeds );
+	// ft_dashboard_primary_output( 'ft_dashboard_primary', $feeds);
 }
 
 function scripts_and_styles() {
-?>
+	?>
 	<style>
 		#ft_dashboard_primary .widget-loading{
 			padding:12px 12px 0;
@@ -211,19 +204,19 @@ function scripts_and_styles() {
 		}
 		#ft_dashboard_primary .inside .notice{
 			margin:0
-		}	
+		}
 		#ft_dashboard_primary .inside {
 			margin: 0;
 			padding: 0;
 		}
 		#ft_dashboard_primary .rss-widget:last-child {
-		    border-bottom: none;
-		    padding-bottom: 0;
+			border-bottom: none;
+			padding-bottom: 0;
 		}
 		#ft_dashboard_primary .rss-widget {
-		    border-bottom: 1px solid #eee;
-		    font-size: 13px;
-		    padding: 12px;
+			border-bottom: 1px solid #eee;
+			font-size: 13px;
+			padding: 12px;
 		}
 	</style>
 	<script>
@@ -231,7 +224,7 @@ function scripts_and_styles() {
 		//		console.log( Window.ajaxWidgets );
 
 		jQuery(document).ready( function($) {
-			
+
 			window.ajaxWidgets = ['ft_dashboard_primary'];
 
 			/**
@@ -291,7 +284,7 @@ function scripts_and_styles() {
 
 		});
 	</script>
-<?php
+	<?php
 }
 
 /**
@@ -307,20 +300,18 @@ function ft_dashboard_primary_output( $widget_id, $feeds ) {
 
 	foreach ( $feeds as $type => $args ) {
 		echo '<div class="rss-widget">';
-			echo '<h3>' .  $args['title'] . '</h3>';
+			echo '<h3>' . $args['title'] . '</h3>';
 				wp_widget_rss_output( $args['url'], $args );
 
 		echo '</div>';
 	}
 }
 
-
-
 /**
  * Ajax handler for dashboard widgets.
  *
  * COPIED FROM CORE
- * BECAUSE OF MISSING FILTER 
+ * BECAUSE OF MISSING FILTER
  *
  * @todo find nicer way to handle this
  *

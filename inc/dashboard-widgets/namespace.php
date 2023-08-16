@@ -2,7 +2,7 @@
 /**
  * Figuren_Theater Admin_UI Dashboard_Widgets.
  *
- * @package figuren-theater/admin_ui/dashboard_widgets
+ * @package figuren-theater/ft-admin-ui
  */
 
 namespace Figuren_Theater\Admin_UI\Dashboard_Widgets;

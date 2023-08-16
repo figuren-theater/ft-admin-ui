@@ -2,7 +2,7 @@
 /**
  * Figuren_Theater Admin_UI Emoji_Toolbar.
  *
- * @package figuren-theater/admin_ui/emoji_toolbar
+ * @package figuren-theater/ft-admin-ui
  */
 
 namespace Figuren_Theater\Admin_UI\Emoji_Toolbar;
@@ -32,10 +32,10 @@ function load_plugin() {
 
 	if ( ! is_admin() || is_network_admin() || is_user_admin() )
 		return;
-	
+
 	$config = Figuren_Theater\get_config()['modules']['admin_ui'];
 	if ( ! $config['emoji-toolbar'] )
 		return; // early
-	
+
 	require_once PLUGINPATH;
 }

@@ -8,7 +8,7 @@
  *
  * Figuren_Theater Admin_UI Featured_Image_Column.
  *
- * @package figuren-theater/admin_ui/featured_image_column
+ * @package figuren-theater/ft-admin-ui
  */
 
 namespace Figuren_Theater\Admin_UI\Featured_Image_Column;
@@ -48,12 +48,12 @@ function load() {
 	if ('edit.php' !== $pagenow) {
 		return;
 	}
-	
+
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\include_wp_enqueue_media' );
 
 	add_action( 'quick_edit_custom_box',  __NAMESPACE__ . '\\featured_image_quick_edit', 10, 2 );
 
-	array_map( 
+	array_map(
 		function ( $post_type )	{
 			// This action hook allows to add a new empty column
 			add_filter( "manage_{$post_type}_posts_columns", __NAMESPACE__ . '\\featured_image_column', 20, 2 );
@@ -85,13 +85,13 @@ function featured_image_column( array $cols ) : array {
 	// load css & js
 	add_action( 'admin_footer', __NAMESPACE__ . '\\admin_footer' );
 
-	// get 
+	// get
 	global $post_type;
 	$post_type_obj = get_post_type_object( $post_type );
 
 	if ( empty( $post_type_obj ) )
 		return $cols;
-	
+
 	$_post_type_labels = get_post_type_labels( $post_type_obj );
 
 	$cols = array_slice( $cols, 0, 1, true )
@@ -103,7 +103,7 @@ function featured_image_column( array $cols ) : array {
 
 
 function admin_footer(){
-	// get 
+	// get
 	global $post_type;
 	$post_type_obj = get_post_type_object( $post_type );
 
@@ -231,13 +231,13 @@ function featured_image_quick_edit( string $column_name, string $post_type ) {
 	// add it only if we have featured image column
 	if( 'featured_image' !== $column_name )
 		return;
-	
-	// get 
+
+	// get
 	$post_type_obj = get_post_type_object( $post_type );
 
 	if ( empty( $post_type_obj ) )
 		return;
-	
+
 	$_post_type_labels = get_post_type_labels( $post_type_obj );
 
 	?>

@@ -7,3 +7,8 @@ node_modules/
 *.zip
 
 /vendor/
+
+# is created during composer install,
+# when package is tested
+# and not running within ft-platform
+/wp-content/
