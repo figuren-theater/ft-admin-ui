@@ -13,15 +13,14 @@
 
 namespace Figuren_Theater\Admin_UI\Featured_Image_Column;
 
-use function _e;
 use function add_action;
 use function add_filter;
 use function did_action;
 use function esc_url;
 use function get_post_thumbnail_id;
+use function get_post_types_by_support;
 use function get_post_type_labels;
 use function get_post_type_object;
-use function get_post_types_by_support;
 use function has_post_thumbnail;
 use function is_admin;
 use function is_network_admin;
@@ -31,30 +30,37 @@ use function wp_get_attachment_image_url;
 
 /**
  * Bootstrap module, when enabled.
+ *
+ * @return void
  */
 function bootstrap() {
 
 	// Hook onto 'admin_init' to make sure AJAX is available.
 	add_action( 'admin_init', __NAMESPACE__ . '\\load' );
 }
-
-function load() {
+/**
+ * Load all modifications.
+ *
+ * @return void
+ */
+function load() :void {
 	global $pagenow;
 
-	if ( ! is_admin() || is_network_admin() || is_user_admin() )
+	if ( ! is_admin() || is_network_admin() || is_user_admin() ) {
 		return;
+	}
 
 	// only load on admin list views
-	if ('edit.php' !== $pagenow) {
+	if ( 'edit.php' !== $pagenow ) {
 		return;
 	}
 
 	add_action( 'admin_enqueue_scripts', __NAMESPACE__ . '\\include_wp_enqueue_media' );
 
-	add_action( 'quick_edit_custom_box',  __NAMESPACE__ . '\\featured_image_quick_edit', 10, 2 );
+	add_action( 'quick_edit_custom_box', __NAMESPACE__ . '\\featured_image_quick_edit', 10, 2 );
 
 	array_map(
-		function ( $post_type )	{
+		function ( $post_type ) {
 			// This action hook allows to add a new empty column
 			add_filter( "manage_{$post_type}_posts_columns", __NAMESPACE__ . '\\featured_image_column', 20, 2 );
 			// This hook fills our column with data
@@ -64,7 +70,6 @@ function load() {
 	);
 
 }
-
 
 /**
  * Filters the columns displayed in the Posts list table for a specific post type.
@@ -89,26 +94,27 @@ function featured_image_column( array $cols ) : array {
 	global $post_type;
 	$post_type_obj = get_post_type_object( $post_type );
 
-	if ( empty( $post_type_obj ) )
+	if ( empty( $post_type_obj ) ) {
 		return $cols;
+	}
 
 	$_post_type_labels = get_post_type_labels( $post_type_obj );
 
 	$cols = array_slice( $cols, 0, 1, true )
-	+ array( 'featured_image' => $_post_type_labels->featured_image ) // our new column
-	+ array_slice( $cols, 1, NULL, true );
+	+ [ 'featured_image' => $_post_type_labels->featured_image ] // our new column
+	+ array_slice( $cols, 1, null, true );
 
 	return $cols;
 }
 
-
-function admin_footer(){
+function admin_footer() {
 	// get
 	global $post_type;
 	$post_type_obj = get_post_type_object( $post_type );
 
-	if ( empty( $post_type_obj ) )
+	if ( empty( $post_type_obj ) ) {
 		return;
+	}
 
 	$_post_type_labels = get_post_type_labels( $post_type_obj );
 	?>
@@ -185,7 +191,6 @@ function admin_footer(){
 	<?php
 }
 
-
 /**
  * Fires for each custom column of a specific post type in the Posts list table.
  *
@@ -203,20 +208,25 @@ function admin_footer(){
  */
 function render_the_column( string $column_name, int $post_id ) {
 
-	if( 'featured_image' !== $column_name )
+	if ( 'featured_image' !== $column_name ) {
 		return;
+	}
 
 	// if there is no featured image for this post, print the placeholder
-	if( has_post_thumbnail( $post_id ) ) {
+	if ( has_post_thumbnail( $post_id ) ) {
 
 		// I know about get_the_post_thumbnail() function but we need data-id attribute here
 		$id = get_post_thumbnail_id( $post_id );
 		$url = esc_url( wp_get_attachment_image_url( $id ) );
-		?><img data-id="<?php echo $id ?>" src="<?php echo $url ?>" /><?php
+		?>
+		<img data-id="<?php echo $id ?>" src="<?php echo $url ?>" />
+		<?php
 
 	} else {
 		// data-id should be "-1" I will explain below
-		?><img data-id="-1" src="" style="display:none;" /><?php
+		?>
+		<img data-id="-1" src="" style="display:none;" />
+		<?php
 	}
 }
 
@@ -229,14 +239,16 @@ function include_wp_enqueue_media() {
 function featured_image_quick_edit( string $column_name, string $post_type ) {
 
 	// add it only if we have featured image column
-	if( 'featured_image' !== $column_name )
+	if ( 'featured_image' !== $column_name ) {
 		return;
+	}
 
 	// get
 	$post_type_obj = get_post_type_object( $post_type );
 
-	if ( empty( $post_type_obj ) )
+	if ( empty( $post_type_obj ) ) {
 		return;
+	}
 
 	$_post_type_labels = get_post_type_labels( $post_type_obj );
 

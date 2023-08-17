@@ -23,7 +23,12 @@ use function __;
 
 defined( 'ABSPATH' ) or exit;
 
-function bootstrap() {
+/**
+ * Bootstrap module, when enabled.
+ *
+ * @return void
+ */
+function bootstrap() :void {
 
 	/**
 	 * Register the dashboard widget.
