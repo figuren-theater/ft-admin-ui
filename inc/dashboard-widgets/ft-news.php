@@ -1,4 +1,4 @@
-<?php // -*- coding: utf-8 -*-
+<?php
 /*
 * Plugin Name:  figuren.theater NETWORK | Dashboard Widgets with RSS from websites.fuer.figuren.theater and meta.figuren.theater
 * Description:
@@ -20,8 +20,6 @@ use function wp_dashboard_cached_rss_widget;
 use function wp_die;
 use function wp_widget_rss_output;
 use function __;
-
-defined( 'ABSPATH' ) or exit;
 
 /**
  * Bootstrap module, when enabled.
