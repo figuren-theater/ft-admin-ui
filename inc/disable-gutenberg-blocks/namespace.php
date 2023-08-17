@@ -16,10 +16,12 @@ use function apply_filters;
 use function remove_submenu_page;
 
 const BASENAME   = 'disable-gutenberg-blocks/class-disable-gutenberg-blocks.php';
-const PLUGINPATH = FT_VENDOR_DIR . '/wpackagist-plugin/' . BASENAME;
+const PLUGINPATH = '/wpackagist-plugin/' . BASENAME;
 
 /**
  * Bootstrap module, when enabled.
+ *
+ * @return void
  */
 function bootstrap() {
 
@@ -27,21 +29,27 @@ function bootstrap() {
 
 	add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin' );
 }
-
+/**
+ * Conditionally load the plugin itself and its modifications.
+ *
+ * @return void
+ */
 function load_plugin() {
 
-	require_once PLUGINPATH;
+	require_once FT_VENDOR_DIR . PLUGINPATH; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant
 
-	// the Plugin hooks itself on 50
-	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_menu', 50 +1 );
+	// The Plugin hooks itself on priority '50'.
+	add_action( 'admin_menu', __NAMESPACE__ . '\\remove_menu', 50 + 1 );
 }
 
-
-function filter_options() {
+/**
+ * Handle options
+ *
+ * @return void
+ */
+function filter_options() :void {
 
 	$blocks_to_disable = [
-		// 'core/freeform',
-		// 'core/html',
 		'core/loginout',
 		'core/text-columns',
 		[ 'core/embed' => 'animoto' ],
@@ -66,14 +74,15 @@ function filter_options() {
 		'Take part in the future now: Replace your filter calls!'
 	);
 
-
 	$_options = apply_filters(
 		__NAMESPACE__,
 		$blocks_to_disable
 	);
 
-	// gets added to the 'OptionsCollection'
-	// from within itself on creation
+	/*
+	 * Gets added to the 'OptionsCollection'
+	 * from within itself on creation.
+	 */
 	new Options\Option(
 		'dgb_disabled_blocks',
 		$_options,
@@ -81,7 +90,11 @@ function filter_options() {
 	);
 }
 
-
-function remove_menu() {
+/**
+ * Remove the plugins admin-menu.
+ *
+ * @return void
+ */
+function remove_menu() : void {
 	remove_submenu_page( 'options-general.php', 'disable-blocks' );
 }

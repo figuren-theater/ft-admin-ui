@@ -37,10 +37,12 @@ function register() :void {
 
 /**
  * Bootstrap module, when enabled.
+ *
+ * @return void
  */
 function bootstrap() {
 
-	// Plugins
+	// Plugins.
 	Emoji_Toolbar\bootstrap();
 	Heartbeat_Control\bootstrap();
 	Disable_Gutenberg_Blocks\bootstrap();

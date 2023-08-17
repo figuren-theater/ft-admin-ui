@@ -1,12 +1,21 @@
 <?php
-
+/**
+ * Modified Recent-Drafts Dashboard-Widget which shows all public post_types, not only the built-in ones.
+ *
+ * @package figuren-theater/ft-admin-ui
+ */
 
 namespace Figuren_Theater\Admin_UI\Dashboard_Widgets\Recent_Drafts;
 
 use function add_filter;
 use function get_post_types;
 
-function bootstrap() {
+/**
+ * Bootstrap module, when enabled.
+ *
+ * @return void
+ */
+function bootstrap() :void {
 	add_filter( 'dashboard_recent_drafts_query_args', __NAMESPACE__ . '\\recent_drafts_query_args' );
 }
 
@@ -14,23 +23,36 @@ function bootstrap() {
  * Show all public post_types in list of recent drafts.
  *
  * @see https://developer.wordpress.org/reference/hooks/dashboard_recent_drafts_query_args/
+ *
+ * @param array<string, string|int> $query_args Arguments for WP_Query
+ *
+ * @return array<string, string|int>
  */
 function recent_drafts_query_args( array $query_args ) : array {
 
 	$args = [
 		'public'   => true,
-	// '_builtin' => false  // include post & page (and attachment, which is useless)
+		// Include post & page (and attachment, which is useless).
+		// '_builtin' => false // !
 	];
-	/* Can be 'names' or 'objects' (default: 'names'). */
-	$output   = 'names';
-	$operator = 'and'; // Can be 'and' or 'or' (default: 'and'). // phpcs:ignore
+
+	// phpcs:ignore // Can be 'names' or 'objects' (default: 'names').
+	$output = 'names';
+	// phpcs:ignore // Can be 'and' or 'or' (default: 'and').
+	$operator = 'and';
 
 	$post_types = get_post_types( $args, $output, $operator );
+	$query_args['post_type'] = $post_types;
 
-	$query_args['post_type']      = $post_types;
-	$query_args['posts_per_page'] = 3; // using <= 3 disables 'View all drafts' Link, which leads to a 'posts' list-table, that is not suiteable for other post_types, using more than 3 is also useless, because the "quick draft" widgets only shows 3 drafts at a time maximum
+	// Using <= 3 disables 'View all drafts' Link.
+	//
+	// This leads to a 'posts' list-table,
+	// that is not suiteable for other post_types,
+	// using more than 3 is also useless,
+	// because the "quick draft" widgets only shows 3 drafts at a time maximum.
+	$query_args['posts_per_page'] = 3;
 
-	// for all users/authors
+	// Query for all users aka authors.
 	unset( $query_args['author'] );
 
 	return $query_args;
