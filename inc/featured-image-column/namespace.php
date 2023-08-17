@@ -4,7 +4,8 @@
  *
  * Inspiration:
  *
- * @see https://rudrastyh.com/wordpress/quick-edit-featured-image.html
+ * @author https://rudrastyh.com
+ * @see    https://rudrastyh.com/wordpress/quick-edit-featured-image.html
  *
  * Figuren_Theater Admin_UI Featured_Image_Column.
  *
