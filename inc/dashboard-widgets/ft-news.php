@@ -1,13 +1,10 @@
 <?php
-/*
-* Plugin Name:  figuren.theater NETWORK | Dashboard Widgets with RSS from websites.fuer.figuren.theater and meta.figuren.theater
-* Description:
-* Plugin URI:
-* Version:      2021.01.04
-* Author:       Carsten Bach
-* Author URI:   https://carsten-bach.de
-* License:      MIT
-*/
+/**
+ * Dashboard Widgets with RSS from websites.fuer.figuren.theater and meta.figuren.theater
+ *
+ * @package figuren-theater\ft-admin-ui
+ */
+
 namespace Figuren_Theater\Admin_UI\Dashboard_Widgets\FT_News;
 
 use ABSPATH;
@@ -18,6 +15,7 @@ use function set_current_screen;
 use function wp_add_dashboard_widget;
 use function wp_dashboard_cached_rss_widget;
 use function wp_die;
+use function wp_unslash;
 use function wp_widget_rss_output;
 use function __;
 
@@ -37,35 +35,48 @@ function bootstrap() :void {
 
 	add_action( 'wp_dashboard_setup', __NAMESPACE__ . '\\dashboard_setup' );
 	add_action( 'wp_network_dashboard_setup', __NAMESPACE__ . '\\dashboard_setup' );
-	// special view at /wp-admin/user/
+
+	// Special, rarely used view at /wp-admin/user/.
 	add_action( 'wp_user_dashboard_setup', __NAMESPACE__ . '\\dashboard_setup' );
 
 	add_action( 'admin_print_footer_scripts-index.php', __NAMESPACE__ . '\\scripts_and_styles', 999 );
 }
 
-function ajax() {
+/**
+ * Defer loading of the RSS feed using the same (ajax) technique like the default "WordPress Events & News" dashboard widget.
+ *
+ * @return void
+ */
+function ajax() : void {
 	add_action( 'wp_ajax_ft_dashboard_widgets', __NAMESPACE__ . '\\wp_ajax_ft_dashboard_widgets', 1 );
 }
 
-function dashboard_setup() {
-	// WordPress Events and News.
+/**
+ * Registers the f.t news/changelog/status widget to the dashboard.
+ *
+ * @return void
+ */
+function dashboard_setup() : void {
 	wp_add_dashboard_widget(
 		'ft_dashboard_primary',
-		__( 'Neues aus dem figuren.theater Netzwerk' ),
+		__( 'Neues aus dem figuren.theater Netzwerk', 'figurentheater' ),
 		__NAMESPACE__ . '\\dashboard_news',
+		null,
+		null,
 		'column3',
-		// 'normal',
-		'high',
+		'high'
 	);
 
 }
 
 /**
- * Renders the Events and News dashboard widget.
+ * Renders the f.t dashboard widget.
  *
- * @since 4.8.0
+ * @since WP 4.8.0
+ *
+ * @return void
  */
-function dashboard_news() {
+function dashboard_news() : void {
 	?>
 	<div class="wordpress-news hide-if-no-js">
 		<?php ft_dashboard_primary(); ?>
@@ -76,9 +87,9 @@ function dashboard_news() {
 			printf(
 				'<a href="%1$s" target="_blank">%2$s <span class="screen-reader-text">%3$s</span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>',
 				'https://websites.fuer.figuren.theater/changelog/',
-				__( 'Changelog' ),
+				esc_html( __( 'Changelog', 'figurentheater' ) ),
 				/* translators: Accessibility text. */
-				__( '(opens in a new tab)' )
+				esc_html( __( '(opens in a new tab)', 'figurentheater' ) )
 			);
 		?>
 
@@ -88,9 +99,9 @@ function dashboard_news() {
 			printf(
 				'<a href="%1$s" target="_blank">%2$s <span class="screen-reader-text">%3$s</span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>',
 				'https://meta.figuren.theater/blog/',
-				__( 'Status-Blog' ),
+				esc_html( __( 'Status-Blog', 'figurentheater' ) ),
 				/* translators: Accessibility text. */
-				__( '(opens in a new tab)' )
+				esc_html( __( '(opens in a new tab)', 'figurentheater' ) )
 			);
 		?>
 
@@ -101,9 +112,9 @@ function dashboard_news() {
 				'<a href="%1$s" target="_blank">%2$s <span class="screen-reader-text">%3$s</span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>',
 				/* translators: If a Rosetta site exists (e.g. https://es.wordpress.org/news/), then use that. Otherwise, leave untranslated. */
 				'https://meta.figuren.theater/deine-unterstuetzung/',
-				__( 'figuren.theater braucht Dich' ),
+				esc_html( __( 'figuren.theater braucht Dich', 'figurentheater' ) ),
 				/* translators: Accessibility text. */
-				__( '(opens in a new tab)' )
+				esc_html( __( '(opens in a new tab)', 'figurentheater' ) )
 			);
 		?>
 	</p>
@@ -113,39 +124,41 @@ function dashboard_news() {
 /**
  * 'WordPress Events and News' dashboard widget.
  *
- * @since 2.7.0
- * @since 4.8.0 Removed popular plugins feed.
+ * @since WP 2.7.0
+ * @since WP 4.8.0 Removed popular plugins feed.
+ *
+ * @return void
  */
-function ft_dashboard_primary() {
+function ft_dashboard_primary() : void {
 	$feeds = [
 		'webs'   => [
 
 			/**
 			 * Filters the primary link URL for the 'WordPress Events and News' dashboard widget.
 			 *
-			 * @since 2.5.0
+			 * @since WP 2.5.0
 			 *
 			 * @param string $link The widget's primary link URL.
 			 */
-			'link'         => apply_filters( 'ft_dashboard_primary_link', __( 'https://websites.fuer.figuren.theater/' ) ),
+			'link'         => apply_filters( 'ft_dashboard_primary_link', __( 'https://websites.fuer.figuren.theater/', 'figurentheater' ) ),
 
 			/**
 			 * Filters the primary feed URL for the 'WordPress Events and News' dashboard widget.
 			 *
-			 * @since 2.3.0
+			 * @since WP 2.3.0
 			 *
 			 * @param string $url The widget's primary feed URL.
 			 */
-			'url'          => apply_filters( 'ft_dashboard_primary_feed', __( 'https://websites.fuer.figuren.theater/feed/' ) ),
+			'url'          => apply_filters( 'ft_dashboard_primary_feed', __( 'https://websites.fuer.figuren.theater/feed/', 'figurentheater' ) ),
 
 			/**
 			 * Filters the primary link title for the 'WordPress Events and News' dashboard widget.
 			 *
-			 * @since 2.3.0
+			 * @since WP 2.3.0
 			 *
 			 * @param string $title Title attribute for the widget's primary link.
 			 */
-			'title'        => apply_filters( 'ft_dashboard_primary_title', __( 'websites.fuer.figuren.theater Changelog' ) ),
+			'title'        => apply_filters( 'ft_dashboard_primary_title', __( 'websites.fuer.figuren.theater Changelog', 'figurentheater' ) ),
 			'items'        => 2,
 			'show_summary' => 1,
 			'show_author'  => 0,
@@ -156,36 +169,36 @@ function ft_dashboard_primary() {
 			/**
 			 * Filters the secondary link URL for the 'WordPress Events and News' dashboard widget.
 			 *
-			 * @since 2.3.0
+			 * @since WP 2.3.0
 			 *
 			 * @param string $link The widget's secondary link URL.
 			 */
-			'link'         => apply_filters( 'ft_dashboard_secondary_link', __( 'https://meta.figuren.theater/' ) ),
+			'link'         => apply_filters( 'ft_dashboard_secondary_link', __( 'https://meta.figuren.theater/', 'figurentheater' ) ),
 
 			/**
 			 * Filters the secondary feed URL for the 'WordPress Events and News' dashboard widget.
 			 *
-			 * @since 2.3.0
+			 * @since WP 2.3.0
 			 *
 			 * @param string $url The widget's secondary feed URL.
 			 */
-			'url'          => apply_filters( 'ft_dashboard_secondary_feed', __( 'https://meta.figuren.theater/feed/' ) ),
+			'url'          => apply_filters( 'ft_dashboard_secondary_feed', __( 'https://meta.figuren.theater/feed/', 'figurentheater' ) ),
 
 			/**
 			 * Filters the secondary link title for the 'WordPress Events and News' dashboard widget.
 			 *
-			 * @since 2.3.0
+			 * @since WP 2.3.0
 			 *
 			 * @param string $title Title attribute for the widget's secondary link.
 			 */
-			'title'        => apply_filters( 'ft_dashboard_secondary_title', __( 'meta.figuren.theater Statusblog' ) ),
+			'title'        => apply_filters( 'ft_dashboard_secondary_title', __( 'meta.figuren.theater Statusblog', 'figurentheater' ) ),
 
 			/**
 			 * Filters the number of secondary link items for the 'WordPress Events and News' dashboard widget.
 			 *
-			 * @since 4.4.0
+			 * @since WP 4.4.0
 			 *
-			 * @param string $items How many items to show in the secondary feed.
+			 * @param int $items How many items to show in the secondary feed.
 			 */
 			'items'        => apply_filters( 'ft_dashboard_secondary_items', 1 ),
 			'show_summary' => 1,
@@ -195,9 +208,12 @@ function ft_dashboard_primary() {
 	];
 
 	wp_dashboard_cached_rss_widget( 'ft_dashboard_primary', __NAMESPACE__ . '\\ft_dashboard_primary_output', $feeds );
-	// ft_dashboard_primary_output( 'ft_dashboard_primary', $feeds);
 }
-
+/**
+ * Add some needed CSS & JS inline to the admin-footer of index.php views.
+ *
+ * @return void
+ */
 function scripts_and_styles() {
 	?>
 	<style>
@@ -296,14 +312,16 @@ function scripts_and_styles() {
  * @since 3.8.0
  * @since 4.8.0 Removed popular plugins feed.
  *
- * @param string $widget_id Widget ID.
- * @param array  $feeds     Array of RSS feeds.
+ * @param string                $widget_id Widget ID.
+ * @param array<string, array<string, string>>  $feeds     Array of RSS feeds.
+ *
+ * @return void
  */
-function ft_dashboard_primary_output( $widget_id, $feeds ) {
+function ft_dashboard_primary_output( $widget_id, $feeds ) : void {
 
-	foreach ( $feeds as $type => $args ) {
+	foreach ( $feeds as $args ) {
 		echo '<div class="rss-widget">';
-			echo '<h3>' . $args['title'] . '</h3>';
+			echo '<h3>' . esc_html( $args['title'] ) . '</h3>';
 				wp_widget_rss_output( $args['url'], $args );
 
 		echo '</div>';
@@ -318,20 +336,26 @@ function ft_dashboard_primary_output( $widget_id, $feeds ) {
  *
  * @todo find nicer way to handle this
  *
- * @since 3.4.0
+ * @since WP 3.4.0
+ *
+ * @return void
  */
-function wp_ajax_ft_dashboard_widgets() {
+function wp_ajax_ft_dashboard_widgets() : void {
 
-	// needed for functions used inside
-	// of ft_dashboard_primary
+	// Needed for functions used inside of ft_dashboard_primary.
 	require_once ABSPATH . 'wp-admin/includes/dashboard.php';
 
-	$pagenow = $_GET['pagenow'];
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	if ( ! isset( $_GET['pagenow'] ) || ! isset( $_GET['widget'] ) ) {
+		wp_die();
+	}
+
+	$pagenow = wp_unslash( \getenv( 'pagenow' ) );
 	if ( 'dashboard-user' === $pagenow || 'dashboard-network' === $pagenow || 'dashboard' === $pagenow ) {
 		set_current_screen( $pagenow );
 	}
 
-	switch ( $_GET['widget'] ) {
+	switch ( \getenv( 'widget' ) ) {
 		case 'ft_dashboard_primary':
 			ft_dashboard_primary();
 			break;

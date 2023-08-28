@@ -47,9 +47,9 @@ function load() :void {
 /**
  * Get post types that support the 'ft_pending_bubbles' feature.
  *
- * @return array An array of post type names.
+ * @return string[] A list of post type names.
  */
-function get_supported_post_types() :array {
+function get_supported_post_types() : array {
 	return get_post_types_by_support( 'ft_pending_bubbles' );
 }
 
@@ -60,7 +60,7 @@ function get_supported_post_types() :array {
  *
  * @return int The total count of pending and draft posts.
  */
-function count_pending_and_draft_posts( $post_type ) :int {
+function count_pending_and_draft_posts( $post_type ) : int {
 	$cpt_count = wp_count_posts( $post_type, 'readable' );
 	return $cpt_count->pending + $cpt_count->draft;
 }
@@ -154,8 +154,8 @@ function pending_posts_bubble__reset( string $new_status, string $old_status, WP
  *
  * @source http://www.php.net/manual/en/function.array-search.php#91365
  *
- * @param mixed $needle   What to look for?
- * @param array $haystack Where to look for?
+ * @param mixed        $needle   What to look for?
+ * @param array<mixed> $haystack Where to look for?
  *
  * @return mixed Returns the key of a found value or false, if non exists.
  */

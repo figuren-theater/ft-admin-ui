@@ -17,6 +17,8 @@ namespace Figuren_Theater\Admin_UI\Featured_Image_Column;
 use function add_action;
 use function add_filter;
 use function did_action;
+use function esc_attr;
+use function esc_html;
 use function esc_url;
 use function get_post_thumbnail_id;
 use function get_post_types_by_support;
@@ -34,13 +36,16 @@ use function wp_get_attachment_image_url;
  *
  * @return void
  */
-function bootstrap() {
+function bootstrap() :void {
 
 	// Hook onto 'admin_init' to make sure AJAX is available.
 	add_action( 'admin_init', __NAMESPACE__ . '\\load' );
 }
+
 /**
  * Load all modifications.
+ *
+ * @global $pagenow
  *
  * @return void
  */
@@ -51,7 +56,7 @@ function load() :void {
 		return;
 	}
 
-	// only load on admin list views
+	// Only load on admin list views.
 	if ( 'edit.php' !== $pagenow ) {
 		return;
 	}
@@ -62,9 +67,9 @@ function load() :void {
 
 	array_map(
 		function ( $post_type ) {
-			// This action hook allows to add a new empty column
-			add_filter( "manage_{$post_type}_posts_columns", __NAMESPACE__ . '\\featured_image_column', 20, 2 );
-			// This hook fills our column with data
+			// This action hook allows to add a new empty column.
+			add_filter( "manage_{$post_type}_posts_columns", __NAMESPACE__ . '\\featured_image_column', 20 );
+			// This hook fills our column with data.
 			add_action( "manage_{$post_type}_posts_custom_column", __NAMESPACE__ . '\\render_the_column', 10, 2 );
 		},
 		get_post_types_by_support( 'thumbnail' )
@@ -82,16 +87,17 @@ function load() :void {
  *  - `manage_post_posts_columns`
  *  - `manage_page_posts_columns`
  *
- * @since 3.0.0
+ * @since WP 3.0.0
  *
- * @param string[] $post_columns An associative array of column headings.
+ * @param array<string, string> $cols An associative array of column headings.
+ *
+ * @return array<string, string>
  */
 function featured_image_column( array $cols ) : array {
 
-	// load css & js
+	// Load css & js into the footer.
 	add_action( 'admin_footer', __NAMESPACE__ . '\\admin_footer' );
 
-	// get
 	global $post_type;
 	$post_type_obj = get_post_type_object( $post_type );
 
@@ -101,23 +107,37 @@ function featured_image_column( array $cols ) : array {
 
 	$_post_type_labels = get_post_type_labels( $post_type_obj );
 
+	if ( ! isset( $_post_type_labels->featured_image ) ) {
+		return $cols;
+	}
+
 	$cols = array_slice( $cols, 0, 1, true )
-	+ [ 'featured_image' => $_post_type_labels->featured_image ] // our new column
+	+ [ 'featured_image' => $_post_type_labels->featured_image ] // Add in our new column.
 	+ array_slice( $cols, 1, null, true );
 
 	return $cols;
 }
 
-function admin_footer() {
-	// get
+/**
+ * Add some needed CSS & JS inline to the admin-footer.
+ *
+ * @global $post_type
+ *
+ * @return void
+ */
+function admin_footer() : void {
+
 	global $post_type;
+
 	$post_type_obj = get_post_type_object( $post_type );
 
 	if ( empty( $post_type_obj ) ) {
 		return;
 	}
-
 	$_post_type_labels = get_post_type_labels( $post_type_obj );
+	if ( ! isset( $_post_type_labels->set_featured_image ) ) {
+		return;
+	}
 	?>
 	<style type="text/css">
 		a.ft-upload-img{
@@ -138,7 +158,7 @@ function admin_footer() {
 	</style>
 	<script type="text/javascript">
 		jQuery(function($){
-			const ft_fi_qe_set = '<?php echo $_post_type_labels->set_featured_image ?>';
+			const ft_fi_qe_set = '<?php echo esc_html( $_post_type_labels->set_featured_image ); ?>';
 
 			// add image
 			$('body').on( 'click', '.ft-upload-img', function( event ) {
@@ -157,7 +177,6 @@ function admin_footer() {
 			});
 
 			// remove image
-
 			$('body').on('click', '.ft-remove-img', function( event ) {
 				event.preventDefault();
 				$(this).hide().prev().find( '[name="_thumbnail_id"]').val('-1').prev().html(ft_fi_qe_set).addClass('button' );
@@ -207,61 +226,74 @@ function admin_footer() {
  * @param string $column_name The name of the column to display.
  * @param int    $post_id     The current post ID.
  */
-function render_the_column( string $column_name, int $post_id ) {
+function render_the_column( string $column_name, int $post_id ) : void {
 
 	if ( 'featured_image' !== $column_name ) {
 		return;
 	}
 
-	// if there is no featured image for this post, print the placeholder
+	// If there is no featured image for this post, print the placeholder.
 	if ( has_post_thumbnail( $post_id ) ) {
 
-		// I know about get_the_post_thumbnail() function but we need data-id attribute here
-		$id = get_post_thumbnail_id( $post_id );
-		$url = esc_url( wp_get_attachment_image_url( $id ) );
+		// I know about get_the_post_thumbnail() function but we need data-id attribute here.
+		$id = (int) get_post_thumbnail_id( $post_id );
+		$url = esc_url( (string) wp_get_attachment_image_url( $id ) );
 		?>
-		<img data-id="<?php echo $id ?>" src="<?php echo $url ?>" />
+		<img data-id="<?php echo esc_attr( (string) $id ); ?>" src="<?php echo esc_url( $url ); ?>" />
 		<?php
 
 	} else {
-		// data-id should be "-1" I will explain below
+		// data-id should be "-1".
 		?>
 		<img data-id="-1" src="" style="display:none;" />
 		<?php
 	}
 }
 
-function include_wp_enqueue_media() {
+/**
+ * Enqueue the WordPress Media JS if not already loaded.
+ *
+ * @return void
+ */
+function include_wp_enqueue_media() : void {
 	if ( ! did_action( 'wp_enqueue_media' ) ) {
 		wp_enqueue_media();
 	}
 }
 
-function featured_image_quick_edit( string $column_name, string $post_type ) {
+/**
+ * Action that fires once for each column in Quick Edit mode.
+ *
+ * @param string $column_name Name of the column to edit.
+ * @param string $post_type   The post type slug, or current screen name if this is a taxonomy list table.
+ *
+ * @return void
+ */
+function featured_image_quick_edit( string $column_name, string $post_type ) : void {
 
-	// add it only if we have featured image column
+	// Add it only if we have a featured image column.
 	if ( 'featured_image' !== $column_name ) {
 		return;
 	}
 
-	// get
 	$post_type_obj = get_post_type_object( $post_type );
-
 	if ( empty( $post_type_obj ) ) {
 		return;
 	}
 
 	$_post_type_labels = get_post_type_labels( $post_type_obj );
-
+	if ( ! isset( $_post_type_labels->featured_image ) || ! isset( $_post_type_labels->set_featured_image ) || ! isset( $_post_type_labels->remove_featured_image ) ) {
+		return;
+	}
 	?>
 	<fieldset id="ft_featured_image" class="inline-edit-col-left">
 		<div class="inline-edit-col">
-			<span class="title"><?php echo $_post_type_labels->featured_image; ?></span>
+			<span class="title"><?php echo esc_html( $_post_type_labels->featured_image ); ?></span>
 			<div>
-				<a href="#" class="button ft-upload-img"><?php echo $_post_type_labels->set_featured_image; ?></a>
+				<a href="#" class="button ft-upload-img"><?php echo esc_html( $_post_type_labels->set_featured_image ); ?></a>
 				<input type="hidden" name="_thumbnail_id" value="" />
 			</div>
-			<a href="#" class="ft-remove-img"><?php echo $_post_type_labels->remove_featured_image; ?></a>
+			<a href="#" class="ft-remove-img"><?php echo esc_html( $_post_type_labels->remove_featured_image ); ?></a>
 		</div>
 	</fieldset>
 	<?php

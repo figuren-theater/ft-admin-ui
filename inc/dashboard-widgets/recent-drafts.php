@@ -26,7 +26,7 @@ function bootstrap() :void {
  *
  * @param array<string, string|int> $query_args Arguments for WP_Query
  *
- * @return array<string, string|int>
+ * @return array<string, mixed>
  */
 function recent_drafts_query_args( array $query_args ) : array {
 
