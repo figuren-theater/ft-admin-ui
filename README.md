@@ -8,7 +8,7 @@
   <h1 align="center">figuren.theater | Admin UI</h1>
 
   <p align="center">
-    Clean and helpful UI to make digital content editing with *your* <a href="https://websites.fuer.figuren.theater">websites.fuer.figuren.theater</a> a friendly experience.
+    Clean and helpful UI to make digital content editing with <em>your</em> <a href="https://websites.fuer.figuren.theater">websites.fuer.figuren.theater</a> a friendly experience.
     <br /><br /><br />
     <a href="https://meta.figuren.theater/blog"><strong>Read our blog</strong></a>
     <br />
@@ -27,7 +27,7 @@
 This is the long desc
 
 * [x] *list closed tracking-issues or `docs` files here*
-* [ ] Do you have any [ideas](/issues/new) ?
+* [ ] Do you have any [ideas](https://github.com/figuren-theater/ft-admin-ui/issues/new) ?
 
 ## Background & Motivation
 
@@ -35,20 +35,10 @@ This is the long desc
 
 ## Install
 
-1. Add this repository to your `composer.json`
-```json
-"repositories": [
-    {
-        "type": "git",
-        "url": "https://github.com/figuren-theater/ft-admin-ui"
-    }
-]
-```
-
-2. Install via command line
-```sh
-composer require figuren-theater/ft-admin-ui
-```
+1. Install via command line
+	```sh
+	composer require figuren-theater/ft-admin-ui
+	```
 
 ## Usage
 
@@ -72,19 +62,21 @@ Thoose are completely managed by code and lack of their typical UI.
 
 Accompaniying the core functionality of the mentioned plugins, theese **best practices** are included with this package.
 
-[X] Add some Admin Menu Notification Bubbles with the count of pending reviews for each post_type.
-[X] Add Featured Images in an Admin Column and in Quick Edit
+- [X] Add some Admin Menu Notification Bubbles with the count of pending reviews for each post_type.
+- [X] Add Featured Images in an Admin Column and in Quick Edit
 
 
-This also includes changes to **Dashboard Widgets**:
+### This also includes changes to **Dashboard Widgets**:
 
-[X] Show drafts of all public post_types inside the *Recent Drafts* Widget.
-[X] Show the last changelog from [websites.fuer.figuren.theater](https://websites.fuer.figuren.theater/) and the two latest news from [meta.figuren.theater](https://meta.figuren.theater/) as its own Widget.
+- [X] Show drafts of all public post_types inside the *Recent Drafts* Widget.
+- [X] Show the last changelog from [websites.fuer.figuren.theater](https://websites.fuer.figuren.theater/) and the two latest news from [meta.figuren.theater](https://meta.figuren.theater/) as its own Widget.
 
 
 ## Built with & uses
 
   - [dependabot](/.github/dependabot.yml)
+  - [code-quality](https://github.com/figuren-theater/code-quality/)
+     A set of status checks to ensure high and consitent code-quality for the figuren.theater platform.
   - ....
 
 ## Contributing
@@ -104,18 +96,18 @@ Don't forget to give the project a star! Thanks again!
 ## Versioning
 
 We use [Semantic Versioning](http://semver.org/) for versioning. For the versions
-available, see the [tags on this repository](/tags).
+available, see the [tags on this repository](https://github.com/figuren-theater/ft-admin-ui/tags).
 
 ## Authors
 
   - **Carsten Bach** - *Provided idea & code* - [figuren.theater/crew](https://figuren.theater/crew/)
 
-See also the list of [contributors](/contributors)
+See also the list of [contributors](https://github.com/figuren-theater/ft-admin-ui/contributors)
 who participated in this project.
 
 ## License
 
-This project is licensed under the [GPL-3.0-or-later](LICENSE.md), see the [LICENSE](LICENSE) file for
+This project is licensed under the **GPL-3.0-or-later**, see the [LICENSE](/LICENSE) file for
 details
 
 ## Acknowledgments

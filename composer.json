@@ -1,65 +1,82 @@
 {
 	"name": "figuren-theater/ft-admin-ui",
 	"description": "Clean and helpful UI to make digital content editing for your figuren.theater WordPress website a friendly experience.",
-    "homepage": "https://websites.fuer.figuren.theater",
-    "type": "wordpress-muplugin",
-    "keywords": ["wordpress", "Admin", "UI", "MP6", "widgets"],
-    "license": "GPL-3.0-or-later",
-    "authors": [
-        {
-            "name": "figuren.theater",
-            "email": "info@figuren.theater"
-        },
-        {
-            "name": "Carsten Bach",
-            "email": "mail@carsten-bach.de",
-            "homepage": "https://carsten-bach.de",
-            "role": "Developer"
-        }
-    ],
-    "support": {
-        "email": "info@figuren.theater",
-        "issues": "https://github.com/figuren-theater/ft-admin-ui/issues",
-        "source": "https://github.com/figuren-theater/ft-admin-ui"
-    },
+	"license": "GPL-3.0-or-later",
+	"type": "wordpress-muplugin",
+	"keywords": [
+		"wordpress",
+		"Admin",
+		"UI",
+		"MP6",
+		"widgets"
+	],
+	"authors": [
+		{
+			"name": "figuren.theater",
+			"email": "info@figuren.theater"
+		},
+		{
+			"name": "Carsten Bach",
+			"email": "mail@carsten-bach.de",
+			"homepage": "https://carsten-bach.de",
+			"role": "Developer"
+		}
+	],
+	"homepage": "https://websites.fuer.figuren.theater",
+	"support": {
+		"email": "info@figuren.theater",
+		"issues": "https://github.com/figuren-theater/ft-admin-ui/issues",
+		"source": "https://github.com/figuren-theater/ft-admin-ui"
+	},
+	"require": {
+		"php": ">=7.1",
+		"figuren-theater/ft-options": "^1",
+		"wpackagist-plugin/disable-gutenberg-blocks": "^1.0",
+		"wpackagist-plugin/emoji-toolbar": "^1.2",
+		"wpackagist-plugin/heartbeat-control": "^2.0"
+	},
+	"require-dev": {
+		"figuren-theater/code-quality": "*"
+	},
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/figuren-theater/ft-options"
+		},
+		{
+			"type": "composer",
+			"url": "https://wpackagist.org"
+		}
+	],
 	"autoload": {
+		"classmap": [
+			"inc/"
+		],
 		"files": [
 			"inc/dashboard-widgets/ft-news.php",
 			"inc/dashboard-widgets/recent-drafts.php",
 			"inc/dashboard-widgets/namespace.php",
-            "inc/emoji-toolbar/namespace.php",
+			"inc/emoji-toolbar/namespace.php",
 			"inc/featured-image-column/namespace.php",
 			"inc/pending-posts-bubble/namespace.php",
 			"inc/disable-gutenberg-blocks/namespace.php",
 			"inc/heartbeat-control/namespace.php",
 			"inc/namespace.php"
-		],
-		"classmap": [
-			"inc/"
 		]
 	},
-	"repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/figuren-theater/ft-options"
-        },
-		{
-			"type": "composer",
-			"url" : "https://wpackagist.org"
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true,
+			"phpstan/extension-installer": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"ergebnis/composer-normalize": true
 		}
-	],
-	"require": {
-		"php": ">=7.1",
-        "figuren-theater/ft-options": "^1",
-		"wpackagist-plugin/disable-gutenberg-blocks": "^1.0",
-        "wpackagist-plugin/emoji-toolbar":"^1.2",
-		"wpackagist-plugin/heartbeat-control": "^2.0"
 	},
 	"extra": {
 		"altis": {
 			"install-overrides": [
 				"wpackagist-plugin/disable-gutenberg-blocks",
-                "wpackagist-plugin/emoji-toolbar",
+				"wpackagist-plugin/emoji-toolbar",
 				"wpackagist-plugin/heartbeat-control"
 			]
 		}

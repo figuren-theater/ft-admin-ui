@@ -2,26 +2,27 @@
 /**
  * Figuren_Theater Admin_UI.
  *
- * @package figuren-theater/admin_ui
+ * @package figuren-theater/ft-admin-ui
  */
 
 namespace Figuren_Theater\Admin_UI;
 
 use Altis;
-use function Altis\register_module;
 
 use function is_admin;
 
 /**
  * Register module.
+ *
+ * @return void
  */
-function register() {
+function register() :void {
 
 	$default_settings = [
-		'enabled'         => is_admin(), // needs to be set
-		'emoji-toolbar'   => false,
+		'enabled'       => is_admin(), // Is needed by Altis!
+		'emoji-toolbar' => false,
 	];
-	$options = [
+	$options          = [
 		'defaults' => $default_settings,
 	];
 
@@ -36,10 +37,12 @@ function register() {
 
 /**
  * Bootstrap module, when enabled.
+ *
+ * @return void
  */
 function bootstrap() {
 
-	// Plugins
+	// Plugins.
 	Emoji_Toolbar\bootstrap();
 	Heartbeat_Control\bootstrap();
 	Disable_Gutenberg_Blocks\bootstrap();

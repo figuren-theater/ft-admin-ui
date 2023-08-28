@@ -2,7 +2,7 @@
 /**
  * Figuren_Theater Admin_UI Dashboard_Widgets.
  *
- * @package figuren-theater/admin_ui/dashboard_widgets
+ * @package figuren-theater/ft-admin-ui
  */
 
 namespace Figuren_Theater\Admin_UI\Dashboard_Widgets;
@@ -11,6 +11,8 @@ use function add_action;
 
 /**
  * Bootstrap module, when enabled.
+ *
+ * @return void
  */
 function bootstrap() {
 
@@ -18,9 +20,13 @@ function bootstrap() {
 	add_action( 'admin_init', __NAMESPACE__ . '\\load', 0 );
 }
 
-function load() {
+/**
+ * Load all modifications.
+ *
+ * @return void
+ */
+function load() :void {
 
 	FT_News\bootstrap();
 	Recent_Drafts\bootstrap();
-
 }

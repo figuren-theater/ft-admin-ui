@@ -9,7 +9,7 @@
  * Domain Path:     /languages
  * Version:         1.1.1
  *
- * @package         Figuren_Theater\Admin_UI
+ * @package         figuren-theater\ft-admin-ui
  */
 
 namespace Figuren_Theater\Admin_UI;
