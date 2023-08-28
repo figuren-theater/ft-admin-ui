@@ -153,11 +153,11 @@
         },
         {
             "name": "figuren-theater/ft-options",
-            "version": "1.1.10",
+            "version": "1.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/figuren-theater/ft-options",
-                "reference": "6ac6d17165a472f1927fe42f891d62a79abb5765"
+                "reference": "7764df6116733212baa363483053728d38d3bf28"
             },
             "require": {
                 "markjaquith/wp-tlc-transients": "^1.0",
@@ -197,7 +197,7 @@
                 "issues": "https://github.com/figuren-theater/ft-options/issues",
                 "source": "https://github.com/figuren-theater/ft-options"
             },
-            "time": "2023-02-02T15:23:09+00:00"
+            "time": "2023-07-06T21:36:17+00:00"
         },
         {
             "name": "markjaquith/wp-tlc-transients",
