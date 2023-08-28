@@ -2,19 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/figuren-theater/ft-admin-ui/compare/1.1.4...HEAD)
-
-## [1.1.4](https://github.com/figuren-theater/ft-admin-ui/compare/1.1.3...1.1.4) - 2023-09-11
-
-### 🐛 Fixed
-
-- FIX wrong path to (heartbeat-control) plugin file ([#15](https://github.com/figuren-theater/ft-admin-ui/pull/15))
-
-## [1.1.3](https://github.com/figuren-theater/ft-admin-ui/compare/1.1.2...1.1.3) - 2023-09-02
-
-### Dependency Updates & Maintenance
-
-- Updated 7 deps ([#13](https://github.com/figuren-theater/ft-admin-ui/pull/13))
+## [Unreleased](https://github.com/figuren-theater/ft-admin-ui/compare/1.1.2...HEAD)
 
 ## [1.1.2](https://github.com/figuren-theater/ft-admin-ui/compare/1.1.1...1.1.2) - 2023-08-28
 
