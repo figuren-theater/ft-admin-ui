@@ -334,7 +334,7 @@ function ft_dashboard_primary_output( $widget_id, $feeds ) : void {
  * COPIED FROM CORE
  * BECAUSE OF MISSING FILTER
  *
- * @todo find nicer way to handle this
+ * @todo #12 find nicer way to handle this
  *
  * @since WP 3.4.0
  *
