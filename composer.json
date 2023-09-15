@@ -36,7 +36,9 @@
 		"wpackagist-plugin/heartbeat-control": "^2.0"
 	},
 	"require-dev": {
-		"figuren-theater/code-quality": "*"
+		"figuren-theater/code-quality": "*",
+		"10up/wpacceptance": "^0.12.3",
+		"http-interop/http-factory-guzzle": "^1.2"
 	},
 	"repositories": [
 		{
@@ -69,7 +71,8 @@
 			"composer/installers": true,
 			"phpstan/extension-installer": true,
 			"dealerdirect/phpcodesniffer-composer-installer": true,
-			"ergebnis/composer-normalize": true
+			"ergebnis/composer-normalize": true,
+			"php-http/discovery": true
 		}
 	},
 	"extra": {

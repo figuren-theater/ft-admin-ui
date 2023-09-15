@@ -1,0 +1,24 @@
+{
+  "name": "ft-admin-ui",
+  "tests": [
+      "tests\/*.php"
+  ],
+  "environment_instructions": [
+      [
+          "install wordpress where type is multisite and url is https://figuren.test",
+          "add site where name is meta.f.t and url is https://meta.figuren.test",
+          "add site where name is websites.f.f.t and url is https://websites.fuer.figuren.test"
+      ]
+  ],
+  "project_path": "%WP_ROOT%/content/mu-plugins/FT",
+  "exclude": [
+      "node_modules",
+      "vendor"
+  ],
+  "enforce_clean_db": true,
+  "disable_clean_db": false,
+  "bootstrap": "./plugin.php",
+  "before_scripts": [
+      "composer install"
+  ]
+}
