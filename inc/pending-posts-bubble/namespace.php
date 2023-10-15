@@ -14,12 +14,13 @@
 
 namespace Figuren_Theater\Admin_UI\Pending_Posts_Bubble;
 
-use DAY_IN_SECONDS;
 use function add_action;
 use function delete_transient;
 use function get_post_types_by_support;
+use function get_transient;
 use function set_transient;
 use function wp_count_posts;
+use WEEK_IN_SECONDS;
 use WP_Post;
 
 /**
@@ -38,6 +39,10 @@ function bootstrap() {
  * @return void
  */
 function load() :void {
+
+	// Prepare builtin post_types.
+	add_post_type_support( 'post', 'ft_pending_bubbles' );
+	add_post_type_support( 'page', 'ft_pending_bubbles' );
 
 	add_action( 'admin_menu', __NAMESPACE__ . '\\pending_posts_bubble', 1 );
 
@@ -94,17 +99,24 @@ function add_bubble_to_menu_item( $menu_link, $count ) :string {
 function pending_posts_bubble() :void {
 	global $menu;
 
-	$supported_post_types = get_supported_post_types();
-	$ft_pending_bubbles = [];
+	$ft_pending_bubbles = get_transient( '_ft_pending_bubbles' );
 
-	foreach ( $supported_post_types as $pt ) {
-		$ft_pending_bubbles[ $pt ] = count_pending_and_draft_posts( $pt );
+	// Check for transient. If none, then execute WP_Query.
+	if ( ! \is_array( $ft_pending_bubbles ) || empty( $ft_pending_bubbles ) ) {
+
+		$supported_post_types = get_supported_post_types();
+		$ft_pending_bubbles = [];
+
+		foreach ( $supported_post_types as $pt ) {
+			$ft_pending_bubbles[ $pt ] = count_pending_and_draft_posts( $pt );
+		}
+
+		set_transient( '_ft_pending_bubbles', $ft_pending_bubbles, WEEK_IN_SECONDS );
 	}
 
-	set_transient( '_ft_pending_bubbles', $ft_pending_bubbles, DAY_IN_SECONDS );
-
 	foreach ( $ft_pending_bubbles as $pt => $count ) {
-		if ( $count ) {
+		if ( \is_int( $count ) && $count > 0 ) {
+
 			$suffix = ( 'post' === $pt ) ? '' : "?post_type=$pt";
 			$menu_link = "edit.php$suffix";
 
