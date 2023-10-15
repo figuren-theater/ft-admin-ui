@@ -60,5 +60,8 @@ function recent_drafts_query_args( array $query_args ) : array {
 	// Query for all users aka authors.
 	unset( $query_args['author'] );
 
+	// Useful when pagination is not needed.
+	$query_args['no_found_rows'] = true;
+
 	return $query_args;
 }
