@@ -102,7 +102,7 @@ function pending_posts_bubble() :void {
 	$ft_pending_bubbles = get_transient( '_ft_pending_bubbles' );
 
 	// Check for transient. If none, then execute WP_Query.
-	if ( false === ( $ft_pending_bubbles ) ) {
+	if ( ! \is_array( $ft_pending_bubbles ) || empty( $ft_pending_bubbles ) ) {
 
 		$supported_post_types = get_supported_post_types();
 		$ft_pending_bubbles = [];
@@ -115,7 +115,8 @@ function pending_posts_bubble() :void {
 	}
 
 	foreach ( $ft_pending_bubbles as $pt => $count ) {
-		if ( $count ) {
+		if ( \is_int( $count ) && $count > 0 ) {
+
 			$suffix = ( 'post' === $pt ) ? '' : "?post_type=$pt";
 			$menu_link = "edit.php$suffix";
 
