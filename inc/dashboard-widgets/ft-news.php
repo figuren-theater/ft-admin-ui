@@ -353,8 +353,8 @@ function wp_ajax_ft_dashboard_widgets() : void {
 	// Nonce is created in wp_dashboard() .
 	\check_ajax_referer( 'closedpostboxes' );
 
-	$pagenow = sanitize_key( $_GET['pagenow'] );
-	$widget = sanitize_key( $_GET['widget'] );
+	$pagenow = sanitize_key( '' . $_GET['pagenow'] ); // Ugly hack for more type safety.
+	$widget  = sanitize_key( '' . $_GET['widget'] );  // Ugly hack for more type safety.
 
 	if ( 'dashboard-user' === $pagenow || 'dashboard-network' === $pagenow || 'dashboard' === $pagenow ) {
 		set_current_screen( $pagenow );
