@@ -199,13 +199,15 @@ function ft_dashboard_primary() : void {
 			 *
 			 * @param int $items How many items to show in the secondary feed.
 			 */
-			'items'        => apply_filters( 'ft_dashboard_secondary_items', 1 ),
+			'items'        => 1,
 			'show_summary' => 1,
 			'show_author'  => 1,
 			'show_date'    => 1,
 		],
 	];
 
+	// TEMP. disable changelog feed, as its useless.
+	$feeds = [ $feeds['meta'] ];
 	wp_dashboard_cached_rss_widget( 'ft_dashboard_primary', __NAMESPACE__ . '\\ft_dashboard_primary_output', $feeds );
 }
 /**
