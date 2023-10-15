@@ -7,6 +7,7 @@
 
 namespace Figuren_Theater\Admin_UI\Dashboard_Widgets\Recent_Drafts;
 
+use function add_action;
 use function add_filter;
 use function get_post_types;
 
@@ -16,7 +17,12 @@ use function get_post_types;
  * @return void
  */
 function bootstrap() :void {
-	add_filter( 'dashboard_recent_drafts_query_args', __NAMESPACE__ . '\\recent_drafts_query_args' );
+	/**
+	 * Fires after core widgets for the admin dashboard have been registered.
+	 */
+	add_action( 'wp_dashboard_setup', function() : void {
+		add_filter( 'dashboard_recent_drafts_query_args', __NAMESPACE__ . '\\recent_drafts_query_args' );
+	} );
 }
 
 /**
@@ -40,9 +46,8 @@ function recent_drafts_query_args( array $query_args ) : array {
 	$output = 'names';
 	// phpcs:ignore // Can be 'and' or 'or' (default: 'and').
 	$operator = 'and';
-
 	$post_types = get_post_types( $args, $output, $operator );
-	$query_args['post_type'] = $post_types;
+	$query_args['post_type'] = \array_values( $post_types );
 
 	// Using <= 3 disables 'View all drafts' Link.
 	//

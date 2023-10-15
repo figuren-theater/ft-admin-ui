@@ -15,7 +15,6 @@ use function set_current_screen;
 use function wp_add_dashboard_widget;
 use function wp_dashboard_cached_rss_widget;
 use function wp_die;
-use function wp_unslash;
 use function wp_widget_rss_output;
 use function __;
 
@@ -200,13 +199,15 @@ function ft_dashboard_primary() : void {
 			 *
 			 * @param int $items How many items to show in the secondary feed.
 			 */
-			'items'        => apply_filters( 'ft_dashboard_secondary_items', 1 ),
+			'items'        => 1,
 			'show_summary' => 1,
 			'show_author'  => 1,
 			'show_date'    => 1,
 		],
 	];
 
+	// TEMP. disable changelog feed, as its useless.
+	$feeds = [ $feeds['meta'] ];
 	wp_dashboard_cached_rss_widget( 'ft_dashboard_primary', __NAMESPACE__ . '\\ft_dashboard_primary_output', $feeds );
 }
 /**
@@ -345,17 +346,20 @@ function wp_ajax_ft_dashboard_widgets() : void {
 	// Needed for functions used inside of ft_dashboard_primary.
 	require_once ABSPATH . 'wp-admin/includes/dashboard.php';
 
-	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	if ( ! isset( $_GET['pagenow'] ) || ! isset( $_GET['widget'] ) ) {
 		wp_die();
 	}
 
-	$pagenow = wp_unslash( \getenv( 'pagenow' ) );
+	// Nonce is created in wp_dashboard() .
+	\check_ajax_referer( 'closedpostboxes' );
+
+	$pagenow = sanitize_key( '' . $_GET['pagenow'] ); // Ugly hack for more type safety.
+	$widget  = sanitize_key( '' . $_GET['widget'] );  // Ugly hack for more type safety.
+
 	if ( 'dashboard-user' === $pagenow || 'dashboard-network' === $pagenow || 'dashboard' === $pagenow ) {
 		set_current_screen( $pagenow );
 	}
-
-	switch ( \getenv( 'widget' ) ) {
+	switch ( $widget ) {
 		case 'ft_dashboard_primary':
 			ft_dashboard_primary();
 			break;
