@@ -113,7 +113,7 @@ function filter_options() :void {
 	);
 
 	if ( ! function_exists( 'get_plugin_data' ) ) {
-		require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 	}
 	$plugin_data = \get_plugin_data( FT_VENDOR_DIR . PLUGINPATH, false, false );
 	new Options\Option(
