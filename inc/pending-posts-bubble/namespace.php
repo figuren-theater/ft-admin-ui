@@ -176,7 +176,7 @@ function recursive_array_search_php_91365( $needle, $haystack ) :mixed {
 	foreach ( $haystack as $key => $value ) {
 		$current_key = $key;
 		if ( $needle === $value
-			or (
+			|| (
 				is_array( $value )
 				&& recursive_array_search_php_91365( $needle, $value ) !== false
 			)

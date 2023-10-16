@@ -20,9 +20,13 @@ function bootstrap() :void {
 	/**
 	 * Fires after core widgets for the admin dashboard have been registered.
 	 */
-	add_action( 'wp_dashboard_setup', function() : void {
-		add_filter( 'dashboard_recent_drafts_query_args', __NAMESPACE__ . '\\recent_drafts_query_args' );
-	} );
+	add_action(
+		'wp_dashboard_setup',
+		function() : void {
+			add_filter( 'dashboard_recent_drafts_query_args', __NAMESPACE__ . '\\recent_drafts_query_args' );
+			add_filter( 'dashboard_recent_posts_query_args', __NAMESPACE__ . '\\recent_posts_query_args' );
+		}
+	);
 }
 
 /**
@@ -30,9 +34,9 @@ function bootstrap() :void {
  *
  * @see https://developer.wordpress.org/reference/hooks/dashboard_recent_drafts_query_args/
  *
- * @param array<string, string|int> $query_args Arguments for WP_Query
+ * @param array<string, array<int, string>|bool|int|string> $query_args Arguments for WP_Query
  *
- * @return array<string, mixed>
+ * @return array<string, array<int, string>|bool|int|string>
  */
 function recent_drafts_query_args( array $query_args ) : array {
 
@@ -62,6 +66,27 @@ function recent_drafts_query_args( array $query_args ) : array {
 
 	// Useful when pagination is not needed.
 	$query_args['no_found_rows'] = true;
+
+	$query_args['cache_results']          = true;
+	$query_args['update_post_meta_cache'] = false;
+	$query_args['update_post_term_cache'] = false;
+
+	return $query_args;
+}
+
+/**
+ * Show all public post_types in list of recent posts.
+ *
+ * @see https://developer.wordpress.org/reference/hooks/dashboard_recent_posts_query_args/
+ *
+ * @param array<string, array<int, string>|bool|int|string> $query_args Arguments for WP_Query
+ *
+ * @return array<string, array<int, string>|bool|int|string>
+ */
+function recent_posts_query_args( array $query_args ) : array {
+
+	$query_args['update_post_meta_cache'] = false;
+	$query_args['update_post_term_cache'] = false;
 
 	return $query_args;
 }
