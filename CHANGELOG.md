@@ -2,7 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/figuren-theater/ft-admin-ui/compare/1.1.6...HEAD)
+## [Unreleased](https://github.com/figuren-theater/ft-admin-ui/compare/1.2.0...HEAD)
+
+## [1.2.0](https://github.com/figuren-theater/ft-admin-ui/compare/1.1.6...1.2.0) - 2023-10-16
+
+### 🚀 Added
+
+- Prevent term- and meta caching while querying posts for 'recent drafts' and 'recent posts' dashboard-widgets ([#27](https://github.com/figuren-theater/ft-admin-ui/pull/27))
+- Disable Pagination on recent-drafts Query ([#26](https://github.com/figuren-theater/ft-admin-ui/pull/26))
+
+### 🐛 Fixed
+
+- Disable CHANGELOG-FEED tempo. until their is some content & minor fixes ([#25](https://github.com/figuren-theater/ft-admin-ui/pull/25))
 
 ## [1.1.6](https://github.com/figuren-theater/ft-admin-ui/compare/1.1.5...1.1.6) - 2023-10-15
 
