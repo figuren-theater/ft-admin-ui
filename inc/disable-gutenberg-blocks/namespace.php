@@ -23,7 +23,7 @@ const PLUGINPATH = '/wpackagist-plugin/' . BASENAME;
  *
  * @return void
  */
-function bootstrap() :void {
+function bootstrap(): void {
 
 	add_action( 'Figuren_Theater\loaded', __NAMESPACE__ . '\\filter_options', 11 );
 
@@ -35,7 +35,7 @@ function bootstrap() :void {
  *
  * @return void
  */
-function load_plugin() :void {
+function load_plugin(): void {
 
 	require_once FT_VENDOR_DIR . PLUGINPATH; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingCustomConstant
 
@@ -48,7 +48,7 @@ function load_plugin() :void {
  *
  * @return void
  */
-function filter_options() :void {
+function filter_options(): void {
 
 	$blocks_to_disable = [
 		'core/loginout',
@@ -96,6 +96,6 @@ function filter_options() :void {
  *
  * @return void
  */
-function remove_menu() : void {
+function remove_menu(): void {
 	remove_submenu_page( 'options-general.php', 'disable-blocks' );
 }

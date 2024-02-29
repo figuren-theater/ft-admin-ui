@@ -8,22 +8,27 @@
 namespace Figuren_Theater\Admin_UI\Dashboard_Widgets\FT_News;
 
 use ABSPATH;
-
+use function __;
 use function add_action;
 use function apply_filters;
+use function check_ajax_referer;
+use function esc_html;
+use function sanitize_key;
 use function set_current_screen;
 use function wp_add_dashboard_widget;
+use function wp_create_nonce;
 use function wp_dashboard_cached_rss_widget;
 use function wp_die;
 use function wp_widget_rss_output;
-use function __;
+
+const NONCE = 'ft_dashboard_widgets_nonce';
 
 /**
  * Bootstrap module, when enabled.
  *
  * @return void
  */
-function bootstrap() :void {
+function bootstrap(): void {
 
 	/**
 	 * Register the dashboard widget.
@@ -34,7 +39,6 @@ function bootstrap() :void {
 
 	add_action( 'wp_dashboard_setup', __NAMESPACE__ . '\\dashboard_setup' );
 	add_action( 'wp_network_dashboard_setup', __NAMESPACE__ . '\\dashboard_setup' );
-
 	// Special, rarely used view at /wp-admin/user/.
 	add_action( 'wp_user_dashboard_setup', __NAMESPACE__ . '\\dashboard_setup' );
 
@@ -46,7 +50,7 @@ function bootstrap() :void {
  *
  * @return void
  */
-function ajax() : void {
+function ajax(): void {
 	add_action( 'wp_ajax_ft_dashboard_widgets', __NAMESPACE__ . '\\wp_ajax_ft_dashboard_widgets', 1 );
 }
 
@@ -55,7 +59,7 @@ function ajax() : void {
  *
  * @return void
  */
-function dashboard_setup() : void {
+function dashboard_setup(): void {
 	wp_add_dashboard_widget(
 		'ft_dashboard_primary',
 		__( 'Neues aus dem figuren.theater Netzwerk', 'figurentheater' ),
@@ -65,7 +69,6 @@ function dashboard_setup() : void {
 		'column3',
 		'high'
 	);
-
 }
 
 /**
@@ -75,7 +78,7 @@ function dashboard_setup() : void {
  *
  * @return void
  */
-function dashboard_news() : void {
+function dashboard_news(): void {
 	?>
 	<div class="wordpress-news hide-if-no-js">
 		<?php ft_dashboard_primary(); ?>
@@ -128,9 +131,9 @@ function dashboard_news() : void {
  *
  * @return void
  */
-function ft_dashboard_primary() : void {
+function ft_dashboard_primary(): void {
 	$feeds = [
-		'webs'   => [
+		'webs' => [
 
 			/**
 			 * Filters the primary link URL for the 'WordPress Events and News' dashboard widget.
@@ -210,6 +213,7 @@ function ft_dashboard_primary() : void {
 	$feeds = [ $feeds['meta'] ];
 	wp_dashboard_cached_rss_widget( 'ft_dashboard_primary', __NAMESPACE__ . '\\ft_dashboard_primary_output', $feeds );
 }
+
 /**
  * Add some needed CSS & JS inline to the admin-footer of index.php views.
  *
@@ -246,6 +250,7 @@ function scripts_and_styles() {
 		jQuery(document).ready( function($) {
 
 			window.ajaxWidgets = ['ft_dashboard_primary'];
+			ft_dashboard_widgets_nonce = '<?php echo \esc_attr( wp_create_nonce( NONCE ) ); ?>';
 
 			/**
 			 * Triggers widget updates via Ajax.
@@ -274,7 +279,7 @@ function scripts_and_styles() {
 						p = e.parent();
 						setTimeout( function(){
 							// Request the widget content.
-							p.load( ajaxurl + '?action=ft_dashboard_widgets&widget=' + id + '&pagenow=' + pagenow, '', function() {
+							p.load( ajaxurl + '?action=ft_dashboard_widgets&widget=' + id + '&pagenow=' + pagenow + '&_ajax_nonce=' + ft_dashboard_widgets_nonce, '', function() {
 								// Hide the parent and slide it out for visual fancyness.
 								p.hide().slideDown('normal', function(){
 									$(this).css('display', '');
@@ -313,13 +318,12 @@ function scripts_and_styles() {
  * @since 3.8.0
  * @since 4.8.0 Removed popular plugins feed.
  *
- * @param string                $widget_id Widget ID.
- * @param array<string, array<string, string>>  $feeds     Array of RSS feeds.
+ * @param string                               $widget_id Widget ID.
+ * @param array<string, array<string, string>> $feeds     Array of RSS feeds.
  *
  * @return void
  */
-function ft_dashboard_primary_output( $widget_id, $feeds ) : void {
-
+function ft_dashboard_primary_output( $widget_id, $feeds ): void {
 	foreach ( $feeds as $args ) {
 		echo '<div class="rss-widget">';
 			echo '<h3>' . esc_html( $args['title'] ) . '</h3>';
@@ -332,16 +336,14 @@ function ft_dashboard_primary_output( $widget_id, $feeds ) : void {
 /**
  * Ajax handler for dashboard widgets.
  *
- * COPIED FROM CORE
+ * COPIED FROM CORE (/wp-admin/includes/ajax-actions.php)
  * BECAUSE OF MISSING FILTER
- *
- * @todo #12 find nicer way to handle this
  *
  * @since WP 3.4.0
  *
  * @return void
  */
-function wp_ajax_ft_dashboard_widgets() : void {
+function wp_ajax_ft_dashboard_widgets(): void {
 
 	// Needed for functions used inside of ft_dashboard_primary.
 	require_once ABSPATH . 'wp-admin/includes/dashboard.php';
@@ -350,8 +352,7 @@ function wp_ajax_ft_dashboard_widgets() : void {
 		wp_die();
 	}
 
-	// Nonce is created in wp_dashboard() .
-	\check_ajax_referer( 'closedpostboxes' );
+	check_ajax_referer( NONCE );
 
 	$pagenow = sanitize_key( '' . $_GET['pagenow'] ); // Ugly hack for more type safety.
 	$widget  = sanitize_key( '' . $_GET['widget'] );  // Ugly hack for more type safety.

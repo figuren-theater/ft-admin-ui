@@ -16,7 +16,7 @@ use function is_admin;
  *
  * @return void
  */
-function register() :void {
+function register(): void {
 
 	$default_settings = [
 		'enabled'       => is_admin(), // Is needed by Altis!

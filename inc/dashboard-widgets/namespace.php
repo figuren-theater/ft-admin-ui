@@ -25,7 +25,7 @@ function bootstrap() {
  *
  * @return void
  */
-function load() :void {
+function load(): void {
 
 	FT_News\bootstrap();
 	Recent_Drafts\bootstrap();

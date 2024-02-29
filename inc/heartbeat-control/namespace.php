@@ -28,7 +28,6 @@ function bootstrap() {
 	add_action( 'Figuren_Theater\loaded', __NAMESPACE__ . '\\filter_options', 11 );
 
 	add_action( 'plugins_loaded', __NAMESPACE__ . '\\load_plugin' );
-
 }
 
 /**
@@ -61,7 +60,7 @@ function load_plugin() {
  *
  * @return string The path to the MO file or an empty string if unloading is needed.
  */
-function unload_i18n( string $mofile, string $domain ) : string {
+function unload_i18n( string $mofile, string $domain ): string {
 	// Check if the domain is 'cmb2'.
 	if ( 'cmb2' === $domain ) {
 		// If the domain is 'cmb2', prevent loading and return an empty string.
@@ -77,7 +76,7 @@ function unload_i18n( string $mofile, string $domain ) : string {
  *
  * @return void
  */
-function filter_options() :void {
+function filter_options(): void {
 
 	$_options = [
 		'rules_dash'   => [
@@ -139,7 +138,7 @@ function filter_options() :void {
  *
  * @return void
  */
-function remove_menu() : void {
+function remove_menu(): void {
 	remove_submenu_page( 'options-general.php', 'heartbeat_control_settings' );
 }
 
@@ -148,7 +147,7 @@ function remove_menu() : void {
  *
  * @return void
  */
-function remove_scripts() : void {
+function remove_scripts(): void {
 	// Might be a little too global but,
 	// this saves: 30kb on each /wp-admin request.
 	remove_action( 'admin_footer', [ 'CMB2_JS', 'enqueue' ], 8 );

@@ -36,7 +36,7 @@ use function wp_get_attachment_image_url;
  *
  * @return void
  */
-function bootstrap() :void {
+function bootstrap(): void {
 
 	// Hook onto 'admin_init' to make sure AJAX is available.
 	add_action( 'admin_init', __NAMESPACE__ . '\\load' );
@@ -49,7 +49,7 @@ function bootstrap() :void {
  *
  * @return void
  */
-function load() :void {
+function load(): void {
 	global $pagenow;
 
 	if ( ! is_admin() || is_network_admin() || is_user_admin() ) {
@@ -74,7 +74,6 @@ function load() :void {
 		},
 		get_post_types_by_support( 'thumbnail' )
 	);
-
 }
 
 /**
@@ -93,7 +92,7 @@ function load() :void {
  *
  * @return array<string, string>
  */
-function featured_image_column( array $cols ) : array {
+function featured_image_column( array $cols ): array {
 
 	// Load css & js into the footer.
 	add_action( 'admin_footer', __NAMESPACE__ . '\\admin_footer' );
@@ -125,7 +124,7 @@ function featured_image_column( array $cols ) : array {
  *
  * @return void
  */
-function admin_footer() : void {
+function admin_footer(): void {
 
 	global $post_type;
 
@@ -226,7 +225,7 @@ function admin_footer() : void {
  * @param string $column_name The name of the column to display.
  * @param int    $post_id     The current post ID.
  */
-function render_the_column( string $column_name, int $post_id ) : void {
+function render_the_column( string $column_name, int $post_id ): void {
 
 	if ( 'featured_image' !== $column_name ) {
 		return;
@@ -236,7 +235,7 @@ function render_the_column( string $column_name, int $post_id ) : void {
 	if ( has_post_thumbnail( $post_id ) ) {
 
 		// I know about get_the_post_thumbnail() function but we need data-id attribute here.
-		$id = (int) get_post_thumbnail_id( $post_id );
+		$id  = (int) get_post_thumbnail_id( $post_id );
 		$url = esc_url( (string) wp_get_attachment_image_url( $id ) );
 		?>
 		<img data-id="<?php echo esc_attr( (string) $id ); ?>" src="<?php echo esc_url( $url ); ?>" />
@@ -255,7 +254,7 @@ function render_the_column( string $column_name, int $post_id ) : void {
  *
  * @return void
  */
-function include_wp_enqueue_media() : void {
+function include_wp_enqueue_media(): void {
 	if ( ! did_action( 'wp_enqueue_media' ) ) {
 		wp_enqueue_media();
 	}
@@ -269,7 +268,7 @@ function include_wp_enqueue_media() : void {
  *
  * @return void
  */
-function featured_image_quick_edit( string $column_name, string $post_type ) : void {
+function featured_image_quick_edit( string $column_name, string $post_type ): void {
 
 	// Add it only if we have a featured image column.
 	if ( 'featured_image' !== $column_name ) {
