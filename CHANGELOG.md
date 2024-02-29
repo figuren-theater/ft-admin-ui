@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/figuren-theater/ft-admin-ui/compare/1.2.0...HEAD)
+## [Unreleased](https://github.com/figuren-theater/ft-admin-ui/compare/1.2.1...HEAD)
+
+## [1.2.1](https://github.com/figuren-theater/ft-admin-ui/compare/1.2.0...1.2.1) - 2024-02-29
+
+### Dependency Updates & Maintenance
+
+- Upgrading figuren-theater/code-quality (0.8.1 => 1.1.1) ([#28](https://github.com/figuren-theater/ft-admin-ui/pull/28))
 
 ## [1.2.0](https://github.com/figuren-theater/ft-admin-ui/compare/1.1.6...1.2.0) - 2023-10-16
 
