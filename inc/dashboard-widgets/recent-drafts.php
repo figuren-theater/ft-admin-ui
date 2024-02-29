@@ -16,13 +16,13 @@ use function get_post_types;
  *
  * @return void
  */
-function bootstrap() :void {
+function bootstrap(): void {
 	/**
 	 * Fires after core widgets for the admin dashboard have been registered.
 	 */
 	add_action(
 		'wp_dashboard_setup',
-		function() : void {
+		function (): void {
 			add_filter( 'dashboard_recent_drafts_query_args', __NAMESPACE__ . '\\recent_drafts_query_args' );
 			add_filter( 'dashboard_recent_posts_query_args', __NAMESPACE__ . '\\recent_posts_query_args' );
 		}
@@ -34,14 +34,14 @@ function bootstrap() :void {
  *
  * @see https://developer.wordpress.org/reference/hooks/dashboard_recent_drafts_query_args/
  *
- * @param array<string, array<int, string>|bool|int|string> $query_args Arguments for WP_Query
+ * @param array<string, array<int, string>|bool|int|string> $query_args Arguments for WP_Query.
  *
  * @return array<string, array<int, string>|bool|int|string>
  */
-function recent_drafts_query_args( array $query_args ) : array {
+function recent_drafts_query_args( array $query_args ): array {
 
 	$args = [
-		'public'   => true,
+		'public' => true,
 		// Include post & page (and attachment, which is useless).
 		// '_builtin' => false // !
 	];
@@ -49,8 +49,8 @@ function recent_drafts_query_args( array $query_args ) : array {
 	// phpcs:ignore // Can be 'names' or 'objects' (default: 'names').
 	$output = 'names';
 	// phpcs:ignore // Can be 'and' or 'or' (default: 'and').
-	$operator = 'and';
-	$post_types = get_post_types( $args, $output, $operator );
+	$operator                = 'and';
+	$post_types              = get_post_types( $args, $output, $operator );
 	$query_args['post_type'] = \array_values( $post_types );
 
 	// Using <= 3 disables 'View all drafts' Link.
@@ -79,11 +79,11 @@ function recent_drafts_query_args( array $query_args ) : array {
  *
  * @see https://developer.wordpress.org/reference/hooks/dashboard_recent_posts_query_args/
  *
- * @param array<string, array<int, string>|bool|int|string> $query_args Arguments for WP_Query
+ * @param array<string, array<int, string>|bool|int|string> $query_args Arguments for WP_Query.
  *
  * @return array<string, array<int, string>|bool|int|string>
  */
-function recent_posts_query_args( array $query_args ) : array {
+function recent_posts_query_args( array $query_args ): array {
 
 	$query_args['update_post_meta_cache'] = false;
 	$query_args['update_post_term_cache'] = false;

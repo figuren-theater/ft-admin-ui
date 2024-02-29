@@ -3,7 +3,6 @@
 	<description>Coding standards for ft-admin-ui</description>
 	<!-- -->
 	<file>.</file>
-
 	<arg name="basepath" value="./"/><!-- Strip the file paths down to the relevant bit -->
 
 	<!--

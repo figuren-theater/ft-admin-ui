@@ -14,14 +14,13 @@
 
 namespace Figuren_Theater\Admin_UI\Pending_Posts_Bubble;
 
+use WEEK_IN_SECONDS;
 use function add_action;
 use function delete_transient;
 use function get_post_types_by_support;
 use function get_transient;
 use function set_transient;
 use function wp_count_posts;
-use WEEK_IN_SECONDS;
-use WP_Post;
 
 /**
  * Bootstrap module, when enabled.
@@ -38,7 +37,7 @@ function bootstrap() {
  *
  * @return void
  */
-function load() :void {
+function load(): void {
 
 	// Prepare builtin post_types.
 	add_post_type_support( 'post', 'ft_pending_bubbles' );
@@ -46,7 +45,7 @@ function load() :void {
 
 	add_action( 'admin_menu', __NAMESPACE__ . '\\pending_posts_bubble', 1 );
 
-	add_action( 'transition_post_status', __NAMESPACE__ . '\\pending_posts_bubble__reset', 10, 3 );
+	add_action( 'transition_post_status', __NAMESPACE__ . '\\pending_posts_bubble__reset', 10, 2 );
 }
 
 /**
@@ -54,7 +53,7 @@ function load() :void {
  *
  * @return string[] A list of post type names.
  */
-function get_supported_post_types() : array {
+function get_supported_post_types(): array {
 	return get_post_types_by_support( 'ft_pending_bubbles' );
 }
 
@@ -65,7 +64,7 @@ function get_supported_post_types() : array {
  *
  * @return int The total count of pending and draft posts.
  */
-function count_pending_and_draft_posts( $post_type ) : int {
+function count_pending_and_draft_posts( $post_type ): int {
 	$cpt_count = wp_count_posts( $post_type, 'readable' );
 	return $cpt_count->pending + $cpt_count->draft;
 }
@@ -78,7 +77,7 @@ function count_pending_and_draft_posts( $post_type ) : int {
  *
  * @return string The modified menu link HTML.
  */
-function add_bubble_to_menu_item( $menu_link, $count ) :string {
+function add_bubble_to_menu_item( $menu_link, $count ): string {
 	return $menu_link . sprintf(
 		'<span class="update-plugins count-%1$s" style="margin-left:5px;"><span class="plugin-count">%1$s</span></span>',
 		$count
@@ -96,7 +95,7 @@ function add_bubble_to_menu_item( $menu_link, $count ) :string {
  *
  * @return void
  */
-function pending_posts_bubble() :void {
+function pending_posts_bubble(): void {
 	global $menu;
 
 	$ft_pending_bubbles = get_transient( '_ft_pending_bubbles' );
@@ -105,7 +104,7 @@ function pending_posts_bubble() :void {
 	if ( ! \is_array( $ft_pending_bubbles ) || empty( $ft_pending_bubbles ) ) {
 
 		$supported_post_types = get_supported_post_types();
-		$ft_pending_bubbles = [];
+		$ft_pending_bubbles   = [];
 
 		foreach ( $supported_post_types as $pt ) {
 			$ft_pending_bubbles[ $pt ] = count_pending_and_draft_posts( $pt );
@@ -117,7 +116,7 @@ function pending_posts_bubble() :void {
 	foreach ( $ft_pending_bubbles as $pt => $count ) {
 		if ( \is_int( $count ) && $count > 0 ) {
 
-			$suffix = ( 'post' === $pt ) ? '' : "?post_type=$pt";
+			$suffix    = ( 'post' === $pt ) ? '' : "?post_type=$pt";
 			$menu_link = "edit.php$suffix";
 
 			$key = array_search(
@@ -140,13 +139,12 @@ function pending_posts_bubble() :void {
  *
  * @see https://developer.wordpress.org/reference/hooks/transition_post_status/
  *
- * @param string  $new_status New post status.
- * @param string  $old_status Old post status.
- * @param WP_Post $post       Post object.
+ * @param string $new_status New post status.
+ * @param string $old_status Old post status.
  *
  * @return void
  */
-function pending_posts_bubble__reset( string $new_status, string $old_status, WP_Post $post ) :void {
+function pending_posts_bubble__reset( string $new_status, string $old_status ): void {
 	if ( $old_status === $new_status ) {
 		return;
 	}
@@ -166,12 +164,12 @@ function pending_posts_bubble__reset( string $new_status, string $old_status, WP
  *
  * @source http://www.php.net/manual/en/function.array-search.php#91365
  *
- * @param mixed        $needle   What to look for?
- * @param array<mixed> $haystack Where to look for?
+ * @param mixed        $needle   What to look for.
+ * @param array<mixed> $haystack Where to look for.
  *
  * @return mixed Returns the key of a found value or false, if non exists.
  */
-function recursive_array_search_php_91365( $needle, $haystack ) :mixed {
+function recursive_array_search_php_91365( $needle, $haystack ): mixed {
 
 	foreach ( $haystack as $key => $value ) {
 		$current_key = $key;
