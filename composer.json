@@ -32,7 +32,7 @@
 		"php": ">=7.1",
 		"figuren-theater/ft-options": "*",
 		"wpackagist-plugin/disable-gutenberg-blocks": "1.0.9",
-		"wpackagist-plugin/emoji-toolbar": "1.2.4",
+		"wpackagist-plugin/emoji-toolbar": "1.2.9",
 		"wpackagist-plugin/heartbeat-control": "2.0.1"
 	},
 	"require-dev": {
